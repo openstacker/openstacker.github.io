@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
+  <title>
+    Blog  </title>
+    <link href="https://openstacker.github.io/blog/tags/OpenStack.xml" rel="self" />
+  
+    <link href="https://openstacker.github.io/blog/"/>
+  
+    
+  <updated>2016-04-11T09:34:10Z</updated>
+
+  <id>https://openstacker.github.io/blog/tags/OpenStack.xml</id>
+
+      <entry>
+    <title type="html">Zaqar Mitaka Release</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2016/zaqar-mitaka-release"/>
+    <updated>2016-02-19T15:58:00Z</updated>
+    <published>2016-02-19T15:58:00Z</published>
+    <id>/blog/2016/zaqar-mitaka-release</id>
+        <category   scheme="/blog/tags"
+                term="Zaqar"
+                label="Zaqar" />
+        <category   scheme="/blog/tags"
+                term="OpenStack"
+                label="Openstack" />
+    
+    <content type="html">
+                  &lt;!--
+&lt;figure class=&#34;pull-right illustration&#34; style=&#34;width: 33%;&#34;&gt;
+  &lt;img src=&#34;/media/images/gnocchi-logo.jpg&#34;&gt;
+&lt;/figure&gt;
+--&gt;
+
+&lt;p&gt;Zaqar Mitaka Release 是我作为PTL的第一个Release，这恐怕也是我两年多以来参与Zaqar 最投入
+的一个Release。Zaqar team的规模并不大，我们只有5个core developer/reviwer, 但在这个
+Release中我们完成了很多有价值的工作。这里仅就其中的主要内容做个简单的回顾，也算是我最自己这半年来工作的一个总结。&lt;/p&gt;
+&lt;h2&gt;文档&lt;/h2&gt;
+&lt;div class=&#34;illustration pull-right icon&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2016/open-book.png&#34;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在这个Cycle里，在Eva Balycheva（Eva是个俄罗斯妹子，当时还是一名实习生，现在已经被提名为Zaqar的Core）的帮助下我们完成
+了Zaqar的Configuration Reference Guide. 也就是配置参考指南。这是非常重要的一步，因为我个人在Mitaka
+的目标之一就是要提高Zaqar的成熟度，向其他DefCore项目看齐。因此进一步完善文档和示例仍然是我们在Newton　Release的主要目标
+之一。&lt;/p&gt;
+&lt;p&gt;See &lt;a&gt;http://docs.openstack.org/mitaka/config-reference/image-service.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Websocket支持二进制数据传输&lt;/h2&gt;
+&lt;div class=&#34;illustration pull-right icon&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2016/order.png&#34;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这是一个工作量不大，但很有value的新feature。在此之前，Zaqar的 websocket传输协议只能传输
+文本格式的消息。而通过这个feature, 则可以实现二进制数据传输，从而在一定程度上提升消息传输的性能。&lt;/p&gt;
+&lt;p&gt;See https://review.openstack.org/#/c/256978/&lt;/p&gt;
+&lt;h2&gt;更多内建的Queue属性&lt;/h2&gt;
+&lt;div class=&#34;illustration pull-right icon&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2016/note.png&#34;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这个feature是我个人希望Zaqar赶超SQS/SNS的一小步。目前虽然Zaqar支持 Queue Metadata，但是
+这个metadata只能被用户用，也就是Zaqar本身无法通过这些metadata对queue支持一些特定的功能。
+举例来说，现在Zaqar默认的message TTL是3600秒，也就是说如果用户在向队列发送消息时不指定TTL，
+那么默认的TTL会取自系统设置的默认TTL，用户无法针对不同的queue定义不同的默认TTL。这个feature
+解决的就是这个问题。&lt;/p&gt;
+&lt;p&gt;See https://review.openstack.org/#/c/265723/&lt;/p&gt;
+&lt;div class=&#34;illustration pull-right icon&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2016/download.png&#34;&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;Puppet Zaqar&lt;/h2&gt;
+&lt;p&gt;Puppet Zaqar其实是我在Mitaka release中玩命推动的一件事情，因为我本意是希望在我们自己的公
+有云上部署Zaqar，一件两全其美的事情。不过虽然最后成功完成了，但美中不足的是我们的Operation team
+决定今后全面转向Ansible，因此也就有了下面的Ansible Zaqar。&lt;/p&gt;
+&lt;p&gt;See https://github.com/openstack/puppet-zaqar&lt;/p&gt;
+&lt;div class=&#34;illustration pull-right icon&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2016/download.png&#34;&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;Ansible Zaqar&lt;/h2&gt;
+&lt;p&gt;Ansible Zaqar的工作正如上面提到的，是因为我们内部的operation team不想再用puppet，所以我不得已
+转而推动Ansible 相关的工作。我的同事Kong Ling Xian为Ansible Zaqar的工作付出了大量的心血，在此
+表示感谢。&lt;/p&gt;
+&lt;p&gt;See https://github.com/openstack/openstack-ansible-os_zaqar&lt;/p&gt;
+&lt;h2&gt;Zaqar UI&lt;/h2&gt;
+&lt;div class=&#34;illustration pull-right icon&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2016/side-menu.png&#34;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在几个Horizon哥们的帮助下，我们终于创建了属于Zaqar的Horizon Plugin。在此特别向Horizon team
+的Thai Tran, Shu Muto和 David Cusatis表示感谢，虽然我估计他们看不懂中文。目前只支持Queue和
+Subscription的相关操作。Pool和Flavor的支持会在Newton Release完成。&lt;/p&gt;
+&lt;p&gt;See https://github.com/openstack/zaqar-ui&lt;/p&gt;
+&lt;div class=&#34;illustration pull-right icon&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2016/notification.png&#34;&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;Zaqar Client&lt;/h2&gt;
+&lt;p&gt;我个人对 Client 和Horizon Plugin非常看中，因为我觉得这两个interface是Zaqar的潜在用户了解
+Zaqar的主要方式，但遗憾的是，我们在过去精力主要放在了server端，没有给二者以足够的重视。因此在
+Mitaka release, 我们用了整整一个Release的时间，我们终于将客户端的所有功能基本补齐了。&lt;/p&gt;      
+          </content>
+  </entry>
+  
+
+</feed>
