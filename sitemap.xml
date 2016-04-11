@@ -5,38 +5,63 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
+    <loc>https://openstacker.github.io/blog/tags/Glance</loc>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://openstacker.github.io/blog/tags/Image</loc>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://openstacker.github.io/blog/tags/Nova</loc>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://openstacker.github.io/blog/tags/OpenStack</loc>
-    <lastmod>2016-04-11T09:34:10Z</lastmod>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://openstacker.github.io/blog/tags/Windows</loc>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Zaqar</loc>
-    <lastmod>2016-04-11T09:34:10Z</lastmod>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/</loc>
-    <lastmod>2016-04-11T09:34:10Z</lastmod>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/about</loc>
-    <lastmod>2016-04-11T09:34:10Z</lastmod>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog</loc>
-    <lastmod>2016-04-11T09:34:10Z</lastmod>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2016</loc>
-    <lastmod>2016-04-11T09:34:10Z</lastmod>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://openstacker.github.io/blog/2016/windows_image_support</loc>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2016/zaqar-mitaka-release</loc>
-    <lastmod>2016-04-11T09:34:10Z</lastmod>
+    <lastmod>2016-04-11T15:17:11Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>

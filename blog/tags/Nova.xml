@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
+  <title>
+    Blog  </title>
+    <link href="https://openstacker.github.io/blog/tags/Nova.xml" rel="self" />
+  
+    <link href="https://openstacker.github.io/blog/"/>
+  
+    
+  <updated>2016-04-11T15:17:13Z</updated>
+
+  <id>https://openstacker.github.io/blog/tags/Nova.xml</id>
+
+      <entry>
+    <title type="html">Windows Image Support</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2016/windows_image_support"/>
+    <updated>2016-04-11T11:35:00Z</updated>
+    <published>2016-04-11T11:35:00Z</published>
+    <id>/blog/2016/windows_image_support</id>
+        <category   scheme="/blog/tags"
+                term="Glance"
+                label="Glance" />
+        <category   scheme="/blog/tags"
+                term="Nova"
+                label="Nova" />
+        <category   scheme="/blog/tags"
+                term="Windows"
+                label="Windows" />
+        <category   scheme="/blog/tags"
+                term="OpenStack"
+                label="Openstack" />
+    
+    <content type="html">
+                  &lt;p&gt;最近Catalyst Cloud的公有云服务要支持Windows 镜像，但问题并不是上传个image那么简单，实际操作起来
+有很多问题。下面总结一下涉及的一些问题。&lt;/p&gt;
+&lt;h2&gt;License&lt;/h2&gt;
+&lt;p&gt;使用Windows 镜像和 Linux 镜像的最大不同在于，你得交钱，你得交钱，你得交钱， 给微软。作为一个小规模
+的公有云，我们采用的方式是同第三方合作，由第三方提供镜像，而作为公有云我们是透明的，也就是说，虽然
+我们向客户对使用Windows镜像收取一定额外的费用，但这些费用会直接付给第三方，我们并不从中收费。&lt;/p&gt;
+&lt;h2&gt;Aggregate and Nova scheduler&lt;/h2&gt;
+&lt;p&gt;我们目前的设计是对提供Windows镜像支持的host单独创建一个aggregate。这样做主要是便于管理，也便于
+对上面谈到的License问题进行计费。同时尽量控制使用最少的host。为了实现将所有创建Windows instance
+的请求全部请求schedule 到特定的Windows aggregate 上，需要用到Nova的 AggregateImagePropertiesIsolation 这个
+filter, 具体参见&lt;a href=&#34;https://github.com/openstack/nova/blob/master/nova/scheduler/filters/aggregate_image_properties_isolation.py&#34;&gt;这里&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这个Filter的作用就是对image中的某个属性和在aggregate中的metadata进行匹配，从而实现对aggregate的过滤。
+在我们设计中我们使用的是 Glance 中image的内置属性 os_distro。因此，相应地要对Windows aggregate设置同样
+的属性和值。这里需要注意的是，如果不想让instance创建在其他某个aggregate中，那么对应的也要给那个aggregate设置同样的属性但是不同的值。&lt;/p&gt;
+&lt;h2&gt;Billing（计费）&lt;/h2&gt;
+&lt;p&gt;计费是公有云里非常重要的一个环节，infrastructer运行的再稳定，计费弄错了都是白费。针对Windows的
+instance我们目前的计费方案是决定在我们后台的OpenERP里对Windows的instance针对其flavor增加若干新的计费条目。
+因为不想改Ceilometer, 因为只有在我们自己的&lt;a href=&#34;https://github.com/openstack/distil&#34;&gt;billing系统&lt;/a&gt;里第一次
+拿到这个instance的metrics时，通过拿到其image的os_distro属性判断其是否是Windows instance。
+然后在计费系统里生成OpenERP的Sales Order line的时候对所有的Windows instance新加一条计费条目。具体patch 参见
+&lt;a href=&#34;https://review.openstack.org/297643&#34;&gt;这里&lt;/a&gt;。&lt;/p&gt;      
+          </content>
+  </entry>
+  
+
+</feed>

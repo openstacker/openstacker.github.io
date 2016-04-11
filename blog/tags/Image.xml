@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
+  <title>
+    Blog  </title>
+    <link href="https://openstacker.github.io/blog/tags/Image.xml" rel="self" />
+  
+    <link href="https://openstacker.github.io/blog/"/>
+  
+    
+  <updated>2016-04-11T15:17:13Z</updated>
+
+  <id>https://openstacker.github.io/blog/tags/Image.xml</id>
+
+    
+
+</feed>
