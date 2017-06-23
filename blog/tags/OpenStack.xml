@@ -7,11 +7,51 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2016-04-12T06:44:30Z</updated>
+  <updated>2017-06-23T16:32:19Z</updated>
 
   <id>https://openstacker.github.io/blog/tags/OpenStack.xml</id>
 
       <entry>
+    <title type="html">Trove 的那些坑</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2017/trove-journey-1"/>
+    <updated>2017-06-23T12:01:00Z</updated>
+    <published>2017-06-23T12:01:00Z</published>
+    <id>/blog/2017/trove-journey-1</id>
+        <category   scheme="/blog/tags"
+                term="Trove"
+                label="Trove" />
+        <category   scheme="/blog/tags"
+                term="OpenStack"
+                label="Openstack" />
+        <category   scheme="/blog/tags"
+                term="Debug"
+                label="Debug" />
+    
+    <content type="html">
+                  &lt;p&gt;最近在研究Trove, 这篇文章主要用来记录我在学习Trove的过程中淌过的那些坑．&lt;/p&gt;
+&lt;h2&gt;安装&lt;/h2&gt;
+&lt;p&gt;这里的安装只讨论开发环境的安装，生产环境的配置后面再单独写吧．&lt;/p&gt;
+&lt;p&gt;现在Trove 开发测试环境的安装还算比较简单，它曾经单独搞过一个名为trove-integration的项目用来
+帮助开发者搭建开发环境，目前这个项目的绝大部分内容继承到了trove 本身repo的integration目录下．&lt;/p&gt;
+&lt;p&gt;目前Trove可以正常通过devstack安装，一般没有问题．不需要额外通过trove-integration安装．&lt;/p&gt;
+&lt;h2&gt;Build Guest Image&lt;/h2&gt;
+&lt;p&gt;其实这个Topic后面同样针对生产环境也需要单独特殊处理，因为安全性和性能方面的考虑．&lt;/p&gt;
+&lt;p&gt;作为测试用，最简单的build Trove guest image的方式就是通过下面这条命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;/trove/integration/scripts$ ./trovestack kick-start mysql&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+但在我的环境上，我目前遇到的一个问题是，尽管当前trove所在host的ssh keys已经被注入到了image
+里，但是在instance启动时试图连接host获取guest agent代码的时候，仍然会被要求输入一个代码．
+目前看来这个密码是我的debian package的密码，我还没有找到如何跳过这个．这个问题会导致
+instance获取trove guest agent失败，从而无法启动guest agent.&lt;/p&gt;
+&lt;p&gt;对于这种cloud-init已经服务启动相关问题的debug, 可以通过命令来查看log.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;journalctl -f&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;      
+          </content>
+  </entry>
+    <entry>
     <title type="html">Windows Image Support</title>
     <author><name>Feilong Wang</name></author>
     <link href="https://openstacker.github.io/blog/2016/windows_image_support"/>
