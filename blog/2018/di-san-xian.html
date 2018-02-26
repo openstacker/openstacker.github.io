@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>
-        Zaqar Mitaka Release
+        老王家常菜之地三鲜
         | Feilong Wang
     </title>
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
@@ -19,21 +19,21 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
     
-            <link href="/blog/2016/windows_image_support" rel="next">
-    
+        <link href="/blog/2017/magnum-architecture" rel="prev">
+        
         <link rel="alternate" type="application/rss+xml"
           href="/blog/index.xml" title="flwang:/hacking/blog">
     
-        <meta property="og:title" content="Zaqar Mitaka Release">
-    <meta property="og:description" content="Zaqar Mitaka Release 是我作为PTL的第一个Release，这恐怕也是我两年多以来参与Zaqar 最投入 的一个Release。Zaqar team的规模并不大，我们只有5个core developer/reviwer, 但在这个 Release中我们完成了很多有价值的工作。这里仅就其中的主要内容做个简单的回顾，也算是我最自己这半年来工作的一个总结。">
-    <meta property="og:image" content="https://openstacker.github.io/media/images/blog/2016/parliament_buildings.jpg">
+        <meta property="og:title" content="老王家常菜之地三鲜">
+    <meta property="og:description" content="我在写作方面是个比较懒惰的人，很多东西觉得自己会了，就懒得动笔/动手记录下来。但为了避免老年痴呆，中年油腻，我还是决定尽量将我在工作和生活中的一些点滴记录下来。 我原来在北京的时候也做饭，但那时候没现在做的多，当然那时候孩子也小。在北京，不想做饭了，就出去吃，随便找个 mall,…">
+    <meta property="og:image" content="https://openstacker.github.io/media/images/blog/2018/disanxian.jpg">
 
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:site" content="@juldanjou"/>
-    <meta name="twitter:image:src" content='https://openstacker.github.io/media/images/blog/2016/parliament_buildings.jpg'/>
-    <meta name="twitter:title" content="Zaqar Mitaka Release"/>
+    <meta name="twitter:image:src" content='https://openstacker.github.io/media/images/blog/2018/disanxian.jpg'/>
+    <meta name="twitter:title" content="老王家常菜之地三鲜"/>
     <meta name="twitter:domain" content="julien.danjou.info"/>
-    <meta name="twitter:description" content="Zaqar Mitaka Release 是我作为PTL的第一个Release，这恐怕也是我两年多以来参与Zaqar 最投入 的一个Release。Zaqar team的规模并不大，我们只有5个core developer/reviwer, 但在这个 Release中我们完成了很多有价值的工作。这里仅就其中的主要内容做个简单的回顾，也算是我最自己这半年来工作的一个总结。"/>
+    <meta name="twitter:description" content="我在写作方面是个比较懒惰的人，很多东西觉得自己会了，就懒得动笔/动手记录下来。但为了避免老年痴呆，中年油腻，我还是决定尽量将我在工作和生活中的一些点滴记录下来。 我原来在北京的时候也做饭，但那时候没现在做的多，当然那时候孩子也小。在北京，不想做饭了，就出去吃，随便找个 mall,…"/>
         <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -85,11 +85,11 @@
     <div class="wrapper">
 
                   <div class="headcontent headcontent-md bg-sl-center overlay"
-           style="background-image: url('/media/images/blog/2016/parliament_buildings.jpg');">
+           style="background-image: url('/media/images/blog/2018/disanxian.jpg');">
 	<div class="container inforow">
 	  <div class="col-sm-10">
 	    <h1 class="white">
-                  Zaqar Mitaka Release
+                  老王家常菜之地三鲜
                   </h1>
 	  </div>
 	  <div class="col-sm-2 text-right">
@@ -101,8 +101,8 @@
                 </a>
               </li>
                                                         <li class="active">
-                <a href="/blog/2016">
-                                    2016
+                <a href="/blog/2018">
+                                    2018
                 </a>
               </li>
                             	    </ol>
@@ -113,80 +113,48 @@
         <div class="container post">
     <header class="entry-header">
       <div class="meta">
-        <small><i class="fa fa-calendar"></i>Sunday 10 April 2016</small>
+        <small><i class="fa fa-calendar"></i>Tuesday 27 February 2018</small>
         <small>
           <i class="fa fa-folder"></i>
-                      <a href="/blog/tags/Zaqar.html">Zaqar</a>,                      <a href="/blog/tags/OpenStack.html">OpenStack</a>                  </small>
+                      <a href="/blog/tags/LAOWANG.html">LAOWANG</a>                  </small>
       </div>
     </header>
     <div class="entry-content padding-bottom">
-            <p>Zaqar Mitaka Release 是我作为PTL的第一个Release，这恐怕也是我两年多以来参与Zaqar 最投入
-的一个Release。Zaqar team的规模并不大，我们只有5个core developer/reviwer, 但在这个
-Release中我们完成了很多有价值的工作。这里仅就其中的主要内容做个简单的回顾，也算是我最自己这半年来工作的一个总结。</p>
-<h2>文档</h2>
-<div class="illustration pull-right icon">
-  <img src="/media/images/blog/2016/open-book.png">
-</div>
-
-<p>在这个Cycle里，在Eva Balycheva（Eva是个俄罗斯妹子，当时还是一名实习生，现在已经被提名为Zaqar的Core）的帮助下我们完成
-了Zaqar的Configuration Reference Guide. 也就是配置参考指南。这是非常重要的一步，因为我个人在Mitaka
-的目标之一就是要提高Zaqar的成熟度，向其他DefCore项目看齐。因此进一步完善文档和示例仍然是我们在Newton　Release的主要目标
-之一。</p>
-<p>See <a>http://docs.openstack.org/mitaka/config-reference/image-service.html</a></p>
-<h2>Websocket支持二进制数据传输</h2>
-<div class="illustration pull-right icon">
-  <img src="/media/images/blog/2016/order.png">
-</div>
-
-<p>这是一个工作量不大，但很有value的新feature。在此之前，Zaqar的 websocket传输协议只能传输
-文本格式的消息。而通过这个feature, 则可以实现二进制数据传输，从而在一定程度上提升消息传输的性能。</p>
-<p>See https://review.openstack.org/#/c/256978/</p>
-<h2>更多内建的Queue属性</h2>
-<div class="illustration pull-right icon">
-  <img src="/media/images/blog/2016/note.png">
-</div>
-
-<p>这个feature是我个人希望Zaqar赶超SQS/SNS的一小步。目前虽然Zaqar支持 Queue Metadata，但是
-这个metadata只能被用户用，也就是Zaqar本身无法通过这些metadata对queue支持一些特定的功能。
-举例来说，现在Zaqar默认的message TTL是3600秒，也就是说如果用户在向队列发送消息时不指定TTL，
-那么默认的TTL会取自系统设置的默认TTL，用户无法针对不同的queue定义不同的默认TTL。这个feature
-解决的就是这个问题。</p>
-<p>See https://review.openstack.org/#/c/265723/</p>
-<div class="illustration pull-right icon">
-  <img src="/media/images/blog/2016/download.png">
-</div>
-
-<h2>Puppet Zaqar</h2>
-<p>Puppet Zaqar其实是我在Mitaka release中玩命推动的一件事情，因为我本意是希望在我们自己的公
-有云上部署Zaqar，一件两全其美的事情。不过虽然最后成功完成了，但美中不足的是我们的Operation team
-决定今后全面转向Ansible，因此也就有了下面的Ansible Zaqar。</p>
-<p>See https://github.com/openstack/puppet-zaqar</p>
-<div class="illustration pull-right icon">
-  <img src="/media/images/blog/2016/download.png">
-</div>
-
-<h2>Ansible Zaqar</h2>
-<p>Ansible Zaqar的工作正如上面提到的，是因为我们内部的operation team不想再用puppet，所以我不得已
-转而推动Ansible 相关的工作。我的同事Kong Ling Xian为Ansible Zaqar的工作付出了大量的心血，在此
-表示感谢。</p>
-<p>See https://github.com/openstack/openstack-ansible-os_zaqar</p>
-<h2>Zaqar UI</h2>
-<div class="illustration pull-right icon">
-  <img src="/media/images/blog/2016/side-menu.png">
-</div>
-
-<p>在几个Horizon哥们的帮助下，我们终于创建了属于Zaqar的Horizon Plugin。在此特别向Horizon team
-的Thai Tran, Shu Muto和 David Cusatis表示感谢，虽然我估计他们看不懂中文。目前只支持Queue和
-Subscription的相关操作。Pool和Flavor的支持会在Newton Release完成。</p>
-<p>See https://github.com/openstack/zaqar-ui</p>
-<div class="illustration pull-right icon">
-  <img src="/media/images/blog/2016/notification.png">
-</div>
-
-<h2>Zaqar Client</h2>
-<p>我个人对 Client 和Horizon Plugin非常看中，因为我觉得这两个interface是Zaqar的潜在用户了解
-Zaqar的主要方式，但遗憾的是，我们在过去精力主要放在了server端，没有给二者以足够的重视。因此在
-Mitaka release, 我们用了整整一个Release的时间，我们终于将客户端的所有功能基本补齐了。</p>          </div>
+            <p>我在写作方面是个比较懒惰的人，很多东西觉得自己会了，就懒得动笔/动手记录下来。但为了避免老年痴呆，中年油腻，我还是决定尽量将我在工作和生活中的一些点滴记录下来。</p>
+<p>我原来在北京的时候也做饭，但那时候没现在做的多，当然那时候孩子也小。在北京，不想做饭了，就出去吃，随便找个 mall, 两人100块钱其实就能吃的挺好。2014年出国之后，下管子这事变难了，惠灵顿的中餐大部分都不好吃，虽然实际上我也没吃过几家。其中，有家叫长城的东北菜馆，我个人挺喜欢的，味道比较地道。我在哈尔滨前后大概呆了8年，从19岁离开家到哈尔滨上大学，到2007年研究生毕业离开哈尔滨，太多的回忆留在了哈尔滨。东北菜是我关于哈尔滨记忆的一个重要组成部分。</p>
+<p>其实东北菜严格意义上不算一个单独的菜系，但提到东北菜（其实我也就带过黑龙江而已），我脑子里一般总能反映出这么几个菜：地三鲜，东北大拉皮，尖椒干豆腐，小鸡炖蘑菇等等。今天先说说地三鲜吧。</p>
+<h2>地三鲜</h2>
+<p>所谓地三鲜，主要的原料有这么几种蔬菜：茄子，土豆，青椒。基本都是最最常见的蔬菜，但是组合在一起的效果确是惊艳的。下面是我自己最近尝试的一种简易版本的地三鲜做饭，欢迎回家试试。</p>
+<ol>
+<li>
+<p>一个茄子，去皮，切滚刀块，新西兰这边都是长茄子，我已然记不清东北到底用的什么茄子了，应该没什么区别</p>
+</li>
+<li>
+<p>一个土豆，去皮切滚刀块备用</p>
+</li>
+<li>
+<p>茄子和土豆放入微波炉大火加热4分钟左右，这一步可以让后面茄子和土豆过油时比较省油</p>
+</li>
+<li>
+<p>一个青椒，青椒不要用刀切，用手掰成你在当地见到的最大面额的硬币大小</p>
+</li>
+<li>
+<p>大蒜一头，切小块和青椒放一起备用</p>
+</li>
+<li>
+<p>平常吃饭的小碗，小半碗李锦记生抽，放入适量淀粉，撒点白胡椒粉备用</p>
+</li>
+<li>
+<p>将加热过的茄子和土豆过油，捞出后备用</p>
+</li>
+<li>
+<p>用锅里剩下的油炒青椒和蒜末，炒香之后倒入过油后的茄子和土豆</p>
+</li>
+<li>
+<p>翻炒后，加入前面调好的生抽淀粉勾芡，翻炒均匀后即可出锅</p>
+</li>
+</ol>
+<p>我给我这道菜打80分吧，虽然味道不及饭店里做的，但贵在简单。这里补一句，其实我是个特别挑剔的人，体现在生活工作各个方面，从小挑食，不爱吃的基本一口不吃，所以这道地三鲜值得大家试试，欢迎反馈意见给我。</p>          </div>
 
   </div>
 

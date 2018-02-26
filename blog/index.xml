@@ -7,11 +7,60 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-02-27T00:03:44Z</updated>
+  <updated>2018-02-27T07:54:26Z</updated>
 
   <id>https://openstacker.github.io/blog/index.xml</id>
 
       <entry>
+    <title type="html">老王家常菜之地三鲜</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2018/di-san-xian"/>
+    <updated>2018-02-27T12:01:00Z</updated>
+    <published>2018-02-27T12:01:00Z</published>
+    <id>/blog/2018/di-san-xian</id>
+        <category   scheme="/blog/tags"
+                term="LAOWANG"
+                label="Laowang" />
+    
+    <content type="html">
+                  &lt;p&gt;我在写作方面是个比较懒惰的人，很多东西觉得自己会了，就懒得动笔/动手记录下来。但为了避免老年痴呆，中年油腻，我还是决定尽量将我在工作和生活中的一些点滴记录下来。&lt;/p&gt;
+&lt;p&gt;我原来在北京的时候也做饭，但那时候没现在做的多，当然那时候孩子也小。在北京，不想做饭了，就出去吃，随便找个 mall, 两人100块钱其实就能吃的挺好。2014年出国之后，下管子这事变难了，惠灵顿的中餐大部分都不好吃，虽然实际上我也没吃过几家。其中，有家叫长城的东北菜馆，我个人挺喜欢的，味道比较地道。我在哈尔滨前后大概呆了8年，从19岁离开家到哈尔滨上大学，到2007年研究生毕业离开哈尔滨，太多的回忆留在了哈尔滨。东北菜是我关于哈尔滨记忆的一个重要组成部分。&lt;/p&gt;
+&lt;p&gt;其实东北菜严格意义上不算一个单独的菜系，但提到东北菜（其实我也就带过黑龙江而已），我脑子里一般总能反映出这么几个菜：地三鲜，东北大拉皮，尖椒干豆腐，小鸡炖蘑菇等等。今天先说说地三鲜吧。&lt;/p&gt;
+&lt;h2&gt;地三鲜&lt;/h2&gt;
+&lt;p&gt;所谓地三鲜，主要的原料有这么几种蔬菜：茄子，土豆，青椒。基本都是最最常见的蔬菜，但是组合在一起的效果确是惊艳的。下面是我自己最近尝试的一种简易版本的地三鲜做饭，欢迎回家试试。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;一个茄子，去皮，切滚刀块，新西兰这边都是长茄子，我已然记不清东北到底用的什么茄子了，应该没什么区别&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一个土豆，去皮切滚刀块备用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;茄子和土豆放入微波炉大火加热4分钟左右，这一步可以让后面茄子和土豆过油时比较省油&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一个青椒，青椒不要用刀切，用手掰成你在当地见到的最大面额的硬币大小&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;大蒜一头，切小块和青椒放一起备用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;平常吃饭的小碗，小半碗李锦记生抽，放入适量淀粉，撒点白胡椒粉备用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;将加热过的茄子和土豆过油，捞出后备用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用锅里剩下的油炒青椒和蒜末，炒香之后倒入过油后的茄子和土豆&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;翻炒后，加入前面调好的生抽淀粉勾芡，翻炒均匀后即可出锅&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我给我这道菜打80分吧，虽然味道不及饭店里做的，但贵在简单。这里补一句，其实我是个特别挑剔的人，体现在生活工作各个方面，从小挑食，不爱吃的基本一口不吃，所以这道地三鲜值得大家试试，欢迎反馈意见给我。&lt;/p&gt;      
+          </content>
+  </entry>
+    <entry>
     <title type="html">Magnum 入坑指南</title>
     <author><name>Feilong Wang</name></author>
     <link href="https://openstacker.github.io/blog/2017/magnum-architecture"/>
