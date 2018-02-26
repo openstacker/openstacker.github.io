@@ -7,11 +7,102 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2017-06-23T16:32:19Z</updated>
+  <updated>2018-02-27T00:03:44Z</updated>
 
   <id>https://openstacker.github.io/blog/index.xml</id>
 
       <entry>
+    <title type="html">Magnum 入坑指南</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2017/magnum-architecture"/>
+    <updated>2017-06-23T12:01:00Z</updated>
+    <published>2017-06-23T12:01:00Z</published>
+    <id>/blog/2017/magnum-architecture</id>
+        <category   scheme="/blog/tags"
+                term="Magnum"
+                label="Magnum" />
+        <category   scheme="/blog/tags"
+                term="OpenStack"
+                label="Openstack" />
+        <category   scheme="/blog/tags"
+                term="Architecture"
+                label="Architecture" />
+    
+    <content type="html">
+                  &lt;p&gt;现在容器大火，OpenStack走下坡路, Magnum 作为OpenStack中的容器相关项目最多也就算是不温不火吧。但实际上，很多客户的应用仍然是传统的Web应用，尤其在新西兰市场，很多客户也只是刚刚把应用从物理机迁移到我们的云上，实际使用上也仅仅是租个虚机，然后就不折腾了。离真正的原生云应用，或者容器化都有不短的距离。&lt;/p&gt;
+&lt;h2&gt;架构&lt;/h2&gt;
+&lt;p&gt;本来想先介绍架构，但其实Magnum的架构其实很简单，倒是涉及到容器和虚机网络的网络架构比较复杂。我后面会补一张图来解释网络架构．Magnum的架构简单来说就是通过Heat去安装指定的COE. 周边涉及的网络和存储也都是通过Heat来创建的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/media/images/blog/2017/800px-Magnum_architecture.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;上图引自 Magnum wiki(https://wiki.openstack.org/wiki/Magnum)&lt;/p&gt;
+&lt;h2&gt;基本操作&lt;/h2&gt;
+&lt;p&gt;通常来说，从头创建一个 COE cluster 需要以下步骤：&lt;/p&gt;
+&lt;p&gt;１. 创建 keypair&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;openstack keypair create feilong --public-key .ssh/id_rsa.pub&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+2. 创建需要的镜像&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;openstack image create fedora-atomic --disk-format qcow2 --container-format bare --property &lt;span class=&#34;nv&#34;&gt;os_distro&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;fedora-atomic --file ./Fedora-Atomic-26-20170723.0.x86_64.qcow2&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+创建镜像时注意指定 os_distro 属性，大小写敏感，目前支持的情况如下表所示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;+-------------------+-------------------------+&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; COE               &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; os_distro               &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;+-------------------+-------------------------+&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; Kubernetes        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; fedora-atomic, coreos   &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;+-------------------+-------------------------+&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; Swarm             &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; fedora-atomic           &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;+-------------------+-------------------------+&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; Mesos             &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; ubuntu                  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;+-------------------+-------------------------+&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+3. Create cluster template&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;openstack coe cluster template create --name k8s --image 2a21599f-a42f-4b12-9888-ae0600168f3c --keypair feilong --flavor c1.c1r2 --master-flavor c1.c1r2 --coe kubernetes --external-network public --fixed-network &amp;lt;NETWORK ID&amp;gt;&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+4. Create cluster&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;openstack coe cluster create --name k8scluster --cluster-template k8s --node-count &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; --timeout &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt; --label &lt;span class=&#34;nv&#34;&gt;kube_tag&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;v1.9.3&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2&gt;Debug&lt;/h2&gt;
+&lt;p&gt;Magnum的debug　分两部分，一部分是OpenStack层面的debug, 一部分是COE层面的debug。&lt;/p&gt;
+&lt;p&gt;先说 OpenStack 层面的 debug, 如果是 devstack, 那么目前 devstack里的服务都是通过sytemd管理，那么起停相关服务的命令需要通过：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;systemctl restart/start/stop devstack@magnum-api&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+而查看 log，则需要通过 journalctl&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;journalctl -u devstack@magnum-api&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+OpenStack 部分的debug 比较简单，和debug OpenStack其他服务基本一致。Magnum　里遇到问题通常是在虚机里实际部署 COE 时失败，这时就需要 ssh 到虚机里去查看失败的原因．Magnum 中 COE的部署是通过 Heat的 Software Deployment执行的。Heat 会将事先准备好的脚本按顺序拷贝到虚机中，具体存放在 &lt;code&gt;/var/lib/cloud/instances/instance_id/scripts&lt;/code&gt; 因此debug起来也比较简单，如果在 &lt;code&gt;/var/log/cloud-init-output.log&lt;/code&gt; 和 &lt;code&gt;/var/log/cloud-init.log&lt;/code&gt; 中看到某个脚本比如 part-008 失败了，那么只需要手工执行 part-008 这个脚本，向里面加入简单的log 即可很容易的分析出失败的原因。&lt;/p&gt;
+&lt;p&gt;至此，假设你已经解决了所有的问题，在OpenStack 能看到COE Cluster 成功创建，状态为 Create Complete。那么基本上意味着 OpenStack部分是正常的。运行 &lt;code&gt;openstack coe cluster list&lt;/code&gt; 得到运行结果应该是这样的：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;feilong@feilong-ThinkPad-X1-Carbon-2nd:~/devstack$ openstack coe cluster list&lt;br /&gt;+--------------------------------------+------------+---------+------------+--------------+-----------------+&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uuid                                 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; name       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; keypair &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; node_count &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; master_count &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; status          &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;+--------------------------------------+------------+---------+------------+--------------+-----------------+&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; 9147e750-164a-4f4d-83cc-e5bf994b8098 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; k8scluster &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; feilong &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;          &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;            &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; CREATE_COMPLETE &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;+--------------------------------------+------------+---------+------------+--------------+-----------------+&lt;br /&gt;feilong@feilong-ThinkPad-X1-Carbon-2nd:~/devstack$ openstack coe cluster show k8scluster&lt;br /&gt;+---------------------+------------------------------------------------------------+&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; Field               &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; Value                                                      &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;+---------------------+------------------------------------------------------------+&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; status              &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; CREATE_COMPLETE                                            &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; cluster_template_id &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; a6822337-1f5b-4266-8967-ff99d8cdb82c                       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; node_addresses      &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;u&lt;span class=&#34;s1&#34;&gt;&amp;#39;172.24.4.13&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;                                           &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uuid                &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; 9147e750-164a-4f4d-83cc-e5bf994b8098                       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; stack_id            &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; a5aa62ee-fb44-4d76-b225-38811adab0a9                       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; status_reason       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; Stack CREATE completed successfully                        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; created_at          &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2018&lt;/span&gt;-02-23T02:30:50+00:00                                  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; updated_at          &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2018&lt;/span&gt;-02-23T02:42:59+00:00                                  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; coe_version         &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; v1.9.3                                                     &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; labels              &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;u&lt;span class=&#34;s1&#34;&gt;&amp;#39;kube_tag&amp;#39;&lt;/span&gt;: u&lt;span class=&#34;s1&#34;&gt;&amp;#39;v1.9.3&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;                                   &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; faults              &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;                                                            &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; keypair             &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; feilong                                                    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; api_address         &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; https://172.24.4.3:6443                                    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; master_addresses    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;u&lt;span class=&#34;s1&#34;&gt;&amp;#39;172.24.4.3&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;                                            &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; create_timeout      &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;120&lt;/span&gt;                                                        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; node_count          &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;                                                          &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; discovery_url       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; https://discovery.etcd.io/b1c310361853d748444c2c48a814ce4d &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; master_count        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;                                                          &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; container_version   &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.12.6                                                     &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; name                &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; k8scluster                                                 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; master_flavor_id    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; ds1G                                                       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; flavor_id           &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; ds1G                                                       &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;br /&gt;+---------------------+------------------------------------------------------------+&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+接下来，则需要验证 Kubernetes 自身的功能。这部分其实是最复杂的，当然也可能因为我个人对 k8s 还不够熟悉，而对 OpenStack 本身已经比较熟悉的关系。下面是我总结的在 debug k8s 基本功能时的一些简单的汇总。后面会陆续再单独开篇记录我学习 k8s 的经验。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;访问 API/Dashboard&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在 Magnum 中访问 k8s API 分两种方式，一种是从虚机内部访问，一种是本机远程访问。从虚机内部访问，没有任何限制，可以直接运行 kubectl 的各种命令。如果是从本机远程访问，则需要先运行&lt;code&gt;eval $(magnum cluster-config &amp;lt;cluster-name&amp;gt;)&lt;/code&gt; 获取证书，然后就可以正常运行 kubectl 的各种命令了。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;确认 k8s API 功能正常
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;kubectl get pods --all-namespaces&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;确认个 minion/worker 节点状态正常
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;fedora@k8scluster-llrejue2ujzv-master-0 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;$ kubectl get nodes&lt;br /&gt;NAME                               STATUS     ROLES     AGE       VERSION&lt;br /&gt;k8scluster-llrejue2ujzv-minion-0   Ready      &amp;lt;none&amp;gt;    3d        v1.9.3&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;创建一个pod, 确认能够可以正常分配 IP，可以用下面的 yaml 文件创建一个 pod，
+把下面的内容保存为文件 busybox.yaml
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apiVersion: v1&lt;br /&gt;kind: Pod&lt;br /&gt;metadata:&lt;br /&gt;  name: busybox&lt;br /&gt;  namespace: default&lt;br /&gt;spec:&lt;br /&gt;  containers:&lt;br /&gt;  - image: busybox&lt;br /&gt;    command:&lt;br /&gt;      - sleep&lt;br /&gt;      - &lt;span class=&#34;s2&#34;&gt;&amp;quot;3600&amp;quot;&lt;/span&gt;&lt;br /&gt;    imagePullPolicy: IfNotPresent&lt;br /&gt;    name: busybox&lt;br /&gt;restartPolicy: Always&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br /&gt;
+接下来运行 kubectl create -f busybox.yaml
+即可成功创建一个 pod&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;通过 Magnum 按照的k8s 默认会安装 CoreDNS, 运行下面的代码可以验证 DNS 是否正常
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;kubectl &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; busybox nslookup kubernetes&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;k8s dashboard&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Mangum 在部署 k8s 时默认会安装 k8s dashboard, 访问的方式也很简单，可以通过 k8s 
+proxy 从本机的浏览器进行访问&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Prometheus 监控&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;未完待续...&lt;/p&gt;      
+          </content>
+  </entry>
+    <entry>
     <title type="html">Trove 的那些坑</title>
     <author><name>Feilong Wang</name></author>
     <link href="https://openstacker.github.io/blog/2017/trove-journey-1"/>
@@ -48,7 +139,8 @@ instance获取trove guest agent失败，从而无法启动guest agent.&lt;/p&gt;
 &lt;p&gt;对于这种cloud-init已经服务启动相关问题的debug, 可以通过命令来查看log.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;journalctl -f&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;      
+&lt;p&gt;&lt;br /&gt;
+未完待续...&lt;/p&gt;      
           </content>
   </entry>
     <entry>

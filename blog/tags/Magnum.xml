@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
   <title>
     Blog  </title>
-    <link href="https://openstacker.github.io/blog/tags/OpenStack.xml" rel="self" />
+    <link href="https://openstacker.github.io/blog/tags/Magnum.xml" rel="self" />
   
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-02-27T00:03:45Z</updated>
+  <updated>2018-02-27T00:03:44Z</updated>
 
-  <id>https://openstacker.github.io/blog/tags/OpenStack.xml</id>
+  <id>https://openstacker.github.io/blog/tags/Magnum.xml</id>
 
       <entry>
     <title type="html">Magnum 入坑指南</title>
@@ -100,175 +100,6 @@ proxy 从本机的浏览器进行访问&lt;/p&gt;
 &lt;li&gt;Prometheus 监控&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;未完待续...&lt;/p&gt;      
-          </content>
-  </entry>
-    <entry>
-    <title type="html">Trove 的那些坑</title>
-    <author><name>Feilong Wang</name></author>
-    <link href="https://openstacker.github.io/blog/2017/trove-journey-1"/>
-    <updated>2017-06-23T12:01:00Z</updated>
-    <published>2017-06-23T12:01:00Z</published>
-    <id>/blog/2017/trove-journey-1</id>
-        <category   scheme="/blog/tags"
-                term="Trove"
-                label="Trove" />
-        <category   scheme="/blog/tags"
-                term="OpenStack"
-                label="Openstack" />
-        <category   scheme="/blog/tags"
-                term="Debug"
-                label="Debug" />
-    
-    <content type="html">
-                  &lt;p&gt;最近在研究Trove, 这篇文章主要用来记录我在学习Trove的过程中淌过的那些坑．&lt;/p&gt;
-&lt;h2&gt;安装&lt;/h2&gt;
-&lt;p&gt;这里的安装只讨论开发环境的安装，生产环境的配置后面再单独写吧．&lt;/p&gt;
-&lt;p&gt;现在Trove 开发测试环境的安装还算比较简单，它曾经单独搞过一个名为trove-integration的项目用来
-帮助开发者搭建开发环境，目前这个项目的绝大部分内容继承到了trove 本身repo的integration目录下．&lt;/p&gt;
-&lt;p&gt;目前Trove可以正常通过devstack安装，一般没有问题．不需要额外通过trove-integration安装．&lt;/p&gt;
-&lt;h2&gt;Build Guest Image&lt;/h2&gt;
-&lt;p&gt;其实这个Topic后面同样针对生产环境也需要单独特殊处理，因为安全性和性能方面的考虑．&lt;/p&gt;
-&lt;p&gt;作为测试用，最简单的build Trove guest image的方式就是通过下面这条命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;/trove/integration/scripts$ ./trovestack kick-start mysql&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;
-但在我的环境上，我目前遇到的一个问题是，尽管当前trove所在host的ssh keys已经被注入到了image
-里，但是在instance启动时试图连接host获取guest agent代码的时候，仍然会被要求输入一个代码．
-目前看来这个密码是我的debian package的密码，我还没有找到如何跳过这个．这个问题会导致
-instance获取trove guest agent失败，从而无法启动guest agent.&lt;/p&gt;
-&lt;p&gt;对于这种cloud-init已经服务启动相关问题的debug, 可以通过命令来查看log.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;journalctl -f&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;
-未完待续...&lt;/p&gt;      
-          </content>
-  </entry>
-    <entry>
-    <title type="html">Windows Image Support</title>
-    <author><name>Feilong Wang</name></author>
-    <link href="https://openstacker.github.io/blog/2016/windows_image_support"/>
-    <updated>2016-04-11T11:35:00Z</updated>
-    <published>2016-04-11T11:35:00Z</published>
-    <id>/blog/2016/windows_image_support</id>
-        <category   scheme="/blog/tags"
-                term="Glance"
-                label="Glance" />
-        <category   scheme="/blog/tags"
-                term="Nova"
-                label="Nova" />
-        <category   scheme="/blog/tags"
-                term="Windows"
-                label="Windows" />
-        <category   scheme="/blog/tags"
-                term="OpenStack"
-                label="Openstack" />
-    
-    <content type="html">
-                  &lt;p&gt;最近Catalyst Cloud的公有云服务要支持Windows 镜像，但问题并不是上传个image那么简单，实际操作起来
-有很多问题。下面总结一下涉及的一些问题。&lt;/p&gt;
-&lt;h2&gt;License&lt;/h2&gt;
-&lt;p&gt;使用Windows 镜像和 Linux 镜像的最大不同在于，你得交钱，你得交钱，你得交钱， 给微软。作为一个小规模
-的公有云，我们采用的方式是同第三方合作，由第三方提供镜像，而作为公有云我们是透明的，也就是说，虽然
-我们向客户对使用Windows镜像收取一定额外的费用，但这些费用会直接付给第三方，我们并不从中收费。&lt;/p&gt;
-&lt;h2&gt;Aggregate and Nova scheduler&lt;/h2&gt;
-&lt;p&gt;我们目前的设计是对提供Windows镜像支持的host单独创建一个aggregate。这样做主要是便于管理，也便于
-对上面谈到的License问题进行计费。同时尽量控制使用最少的host。为了实现将所有创建Windows instance
-的请求全部请求schedule 到特定的Windows aggregate 上，需要用到Nova的 AggregateImagePropertiesIsolation 这个
-filter, 具体参见&lt;a href=&#34;https://github.com/openstack/nova/blob/master/nova/scheduler/filters/aggregate_image_properties_isolation.py&#34;&gt;这里&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;这个Filter的作用就是对image中的某个属性和在aggregate中的metadata进行匹配，从而实现对aggregate的过滤。
-在我们设计中我们使用的是 Glance 中image的内置属性 os_distro。因此，相应地要对Windows aggregate设置同样
-的属性和值。这里需要注意的是，如果不想让instance创建在其他某个aggregate中，那么对应的也要给那个aggregate设置同样的属性但是不同的值。&lt;/p&gt;
-&lt;h2&gt;Billing（计费）&lt;/h2&gt;
-&lt;p&gt;计费是公有云里非常重要的一个环节，infrastructer运行的再稳定，计费弄错了都是白费。针对Windows的
-instance我们目前的计费方案是决定在我们后台的OpenERP里对Windows的instance针对其flavor增加若干新的计费条目。
-因为不想改Ceilometer, 因为只有在我们自己的&lt;a href=&#34;https://github.com/openstack/distil&#34;&gt;billing系统&lt;/a&gt;里第一次
-拿到这个instance的metrics时，通过拿到其image的os_distro属性判断其是否是Windows instance。
-然后在计费系统里生成OpenERP的Sales Order line的时候对所有的Windows instance新加一条计费条目。具体patch 参见
-&lt;a href=&#34;https://review.openstack.org/297643&#34;&gt;这里&lt;/a&gt;。&lt;/p&gt;      
-          </content>
-  </entry>
-    <entry>
-    <title type="html">Zaqar Mitaka Release</title>
-    <author><name>Feilong Wang</name></author>
-    <link href="https://openstacker.github.io/blog/2016/zaqar-mitaka-release"/>
-    <updated>2016-04-10T23:58:00Z</updated>
-    <published>2016-04-10T23:58:00Z</published>
-    <id>/blog/2016/zaqar-mitaka-release</id>
-        <category   scheme="/blog/tags"
-                term="Zaqar"
-                label="Zaqar" />
-        <category   scheme="/blog/tags"
-                term="OpenStack"
-                label="Openstack" />
-    
-    <content type="html">
-                  &lt;p&gt;Zaqar Mitaka Release 是我作为PTL的第一个Release，这恐怕也是我两年多以来参与Zaqar 最投入
-的一个Release。Zaqar team的规模并不大，我们只有5个core developer/reviwer, 但在这个
-Release中我们完成了很多有价值的工作。这里仅就其中的主要内容做个简单的回顾，也算是我最自己这半年来工作的一个总结。&lt;/p&gt;
-&lt;h2&gt;文档&lt;/h2&gt;
-&lt;div class=&#34;illustration pull-right icon&#34;&gt;
-  &lt;img src=&#34;/media/images/blog/2016/open-book.png&#34;&gt;
-&lt;/div&gt;
-
-&lt;p&gt;在这个Cycle里，在Eva Balycheva（Eva是个俄罗斯妹子，当时还是一名实习生，现在已经被提名为Zaqar的Core）的帮助下我们完成
-了Zaqar的Configuration Reference Guide. 也就是配置参考指南。这是非常重要的一步，因为我个人在Mitaka
-的目标之一就是要提高Zaqar的成熟度，向其他DefCore项目看齐。因此进一步完善文档和示例仍然是我们在Newton　Release的主要目标
-之一。&lt;/p&gt;
-&lt;p&gt;See &lt;a&gt;http://docs.openstack.org/mitaka/config-reference/image-service.html&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;Websocket支持二进制数据传输&lt;/h2&gt;
-&lt;div class=&#34;illustration pull-right icon&#34;&gt;
-  &lt;img src=&#34;/media/images/blog/2016/order.png&#34;&gt;
-&lt;/div&gt;
-
-&lt;p&gt;这是一个工作量不大，但很有value的新feature。在此之前，Zaqar的 websocket传输协议只能传输
-文本格式的消息。而通过这个feature, 则可以实现二进制数据传输，从而在一定程度上提升消息传输的性能。&lt;/p&gt;
-&lt;p&gt;See https://review.openstack.org/#/c/256978/&lt;/p&gt;
-&lt;h2&gt;更多内建的Queue属性&lt;/h2&gt;
-&lt;div class=&#34;illustration pull-right icon&#34;&gt;
-  &lt;img src=&#34;/media/images/blog/2016/note.png&#34;&gt;
-&lt;/div&gt;
-
-&lt;p&gt;这个feature是我个人希望Zaqar赶超SQS/SNS的一小步。目前虽然Zaqar支持 Queue Metadata，但是
-这个metadata只能被用户用，也就是Zaqar本身无法通过这些metadata对queue支持一些特定的功能。
-举例来说，现在Zaqar默认的message TTL是3600秒，也就是说如果用户在向队列发送消息时不指定TTL，
-那么默认的TTL会取自系统设置的默认TTL，用户无法针对不同的queue定义不同的默认TTL。这个feature
-解决的就是这个问题。&lt;/p&gt;
-&lt;p&gt;See https://review.openstack.org/#/c/265723/&lt;/p&gt;
-&lt;div class=&#34;illustration pull-right icon&#34;&gt;
-  &lt;img src=&#34;/media/images/blog/2016/download.png&#34;&gt;
-&lt;/div&gt;
-
-&lt;h2&gt;Puppet Zaqar&lt;/h2&gt;
-&lt;p&gt;Puppet Zaqar其实是我在Mitaka release中玩命推动的一件事情，因为我本意是希望在我们自己的公
-有云上部署Zaqar，一件两全其美的事情。不过虽然最后成功完成了，但美中不足的是我们的Operation team
-决定今后全面转向Ansible，因此也就有了下面的Ansible Zaqar。&lt;/p&gt;
-&lt;p&gt;See https://github.com/openstack/puppet-zaqar&lt;/p&gt;
-&lt;div class=&#34;illustration pull-right icon&#34;&gt;
-  &lt;img src=&#34;/media/images/blog/2016/download.png&#34;&gt;
-&lt;/div&gt;
-
-&lt;h2&gt;Ansible Zaqar&lt;/h2&gt;
-&lt;p&gt;Ansible Zaqar的工作正如上面提到的，是因为我们内部的operation team不想再用puppet，所以我不得已
-转而推动Ansible 相关的工作。我的同事Kong Ling Xian为Ansible Zaqar的工作付出了大量的心血，在此
-表示感谢。&lt;/p&gt;
-&lt;p&gt;See https://github.com/openstack/openstack-ansible-os_zaqar&lt;/p&gt;
-&lt;h2&gt;Zaqar UI&lt;/h2&gt;
-&lt;div class=&#34;illustration pull-right icon&#34;&gt;
-  &lt;img src=&#34;/media/images/blog/2016/side-menu.png&#34;&gt;
-&lt;/div&gt;
-
-&lt;p&gt;在几个Horizon哥们的帮助下，我们终于创建了属于Zaqar的Horizon Plugin。在此特别向Horizon team
-的Thai Tran, Shu Muto和 David Cusatis表示感谢，虽然我估计他们看不懂中文。目前只支持Queue和
-Subscription的相关操作。Pool和Flavor的支持会在Newton Release完成。&lt;/p&gt;
-&lt;p&gt;See https://github.com/openstack/zaqar-ui&lt;/p&gt;
-&lt;div class=&#34;illustration pull-right icon&#34;&gt;
-  &lt;img src=&#34;/media/images/blog/2016/notification.png&#34;&gt;
-&lt;/div&gt;
-
-&lt;h2&gt;Zaqar Client&lt;/h2&gt;
-&lt;p&gt;我个人对 Client 和Horizon Plugin非常看中，因为我觉得这两个interface是Zaqar的潜在用户了解
-Zaqar的主要方式，但遗憾的是，我们在过去精力主要放在了server端，没有给二者以足够的重视。因此在
-Mitaka release, 我们用了整整一个Release的时间，我们终于将客户端的所有功能基本补齐了。&lt;/p&gt;      
           </content>
   </entry>
   
