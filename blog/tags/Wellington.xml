@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
+  <title>
+    Blog  </title>
+    <link href="https://openstacker.github.io/blog/tags/Wellington.xml" rel="self" />
+  
+    <link href="https://openstacker.github.io/blog/"/>
+  
+    
+  <updated>2018-02-27T14:07:04Z</updated>
+
+  <id>https://openstacker.github.io/blog/tags/Wellington.xml</id>
+
+      <entry>
+    <title type="html">惠灵顿华人IT Meetup 回顾与展望</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2018/chit-meetup"/>
+    <updated>2018-02-27T14:02:00Z</updated>
+    <published>2018-02-27T14:02:00Z</published>
+    <id>/blog/2018/chit-meetup</id>
+        <category   scheme="/blog/tags"
+                term="Wellington"
+                label="Wellington" />
+        <category   scheme="/blog/tags"
+                term="Meetup"
+                label="Meetup" />
+    
+    <content type="html">
+                  &lt;h2&gt;为什么搞这个meetup&lt;/h2&gt;
+&lt;p&gt;先占个坑，然后再写&lt;/p&gt;
+&lt;h2&gt;接下来该怎么搞&lt;/h2&gt;
+&lt;p&gt;先占个坑，然后再写
+&lt;div class=&#34;illustration pull-right icon&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2016/open-book.png&#34;&gt;
+&lt;/div&gt;&lt;/p&gt;      
+          </content>
+  </entry>
+  
+
+</feed>
