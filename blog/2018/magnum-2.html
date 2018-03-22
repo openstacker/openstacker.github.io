@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>
+        Magnum 入坑指南之二
+        | Feilong Wang
+    </title>
+        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+            <link href="/media/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/media/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/media/css/animate.css" rel="stylesheet">
+    <link href="/media/css/style.css" rel="stylesheet">
+    <link href="/media/css/style-customized.css" rel="stylesheet">
+    <link href="/media/css/pygments.css" rel="stylesheet">
+    <link href="/media/css/flag-icon.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
+    
+        <link href="/blog/2018/chit-meetup" rel="prev">
+            <link href="/blog/2018/calico-debug" rel="next">
+    
+        <link rel="alternate" type="application/rss+xml"
+          href="/blog/index.xml" title="flwang:/hacking/blog">
+    
+        <meta property="og:title" content="Magnum 入坑指南之二">
+    <meta property="og:description" content="截止到这篇blog动笔时，当前的OpenStack master版本是Rocky，目前Magnum所支持的Kubernetes的扩展功能有： dashboard, DNS, proxy, 基于 Heapster的监控，基于Prometheus的监控，基于traefik的Ingress。此外还 支持两种network driver: flannel 和 calico。关于network…">
+    <meta property="og:image" content="https://openstacker.github.io/media/images/blog/2018/magnum2.jpg">
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@juldanjou"/>
+    <meta name="twitter:image:src" content='https://openstacker.github.io/media/images/blog/2018/magnum2.jpg'/>
+    <meta name="twitter:title" content="Magnum 入坑指南之二"/>
+    <meta name="twitter:domain" content="julien.danjou.info"/>
+    <meta name="twitter:description" content="截止到这篇blog动笔时，当前的OpenStack master版本是Rocky，目前Magnum所支持的Kubernetes的扩展功能有： dashboard, DNS, proxy, 基于 Heapster的监控，基于Prometheus的监控，基于traefik的Ingress。此外还 支持两种network driver: flannel 和 calico。关于network…"/>
+        <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'None', 'auto', {'allowLinker': true});
+      ga('send', 'pageview');
+    </script>
+      </head>
+  <body class="archive">
+        <!-- HEADER -->
+    <header class="header header-dark no-sticky">
+      <nav class="navbar container">
+	<div class="navbar-header">
+          <button class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <a class="navbar-brand" href="/">
+            <img src="/media/images/flwang.jpg"
+                 class="img-circle img-thumbnail"
+                 alt="Feilong Wang">
+            OpenStack老兵
+          </a>
+        </div>
+	<div id="navbar" class="navbar-collapse collapse">
+	  <ul class="nav navbar-nav pull-right">
+                                    <li>
+              <a href="/about">
+                                <span class="glyphicon glyphicon-user"></span>
+                                About
+              </a>
+            </li>
+                                    <li class="active">
+              <a href="/blog">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Blog
+              </a>
+            </li>
+                                  </ul>
+	</div>
+      </nav>
+    </header>
+    <!-- /.header -->
+
+    <!-- WRAPPER -->
+    <div class="wrapper">
+
+                  <div class="headcontent headcontent-md bg-sl-center overlay"
+           style="background-image: url('/media/images/blog/2018/magnum2.jpg');">
+	<div class="container inforow">
+	  <div class="col-sm-10">
+	    <h1 class="white">
+                  Magnum 入坑指南之二
+                  </h1>
+	  </div>
+	  <div class="col-sm-2 text-right">
+	    <ol class="breadcrumb breadcrumb-arrow">
+                                                                      <li>
+                <a href="/blog">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    Blog
+                </a>
+              </li>
+                                                        <li class="active">
+                <a href="/blog/2018">
+                                    2018
+                </a>
+              </li>
+                            	    </ol>
+          </div>
+        </div>
+      </div>
+
+        <div class="container post">
+    <header class="entry-header">
+      <div class="meta">
+        <small><i class="fa fa-calendar"></i>Monday 19 March 2018</small>
+        <small>
+          <i class="fa fa-folder"></i>
+                      <a href="/blog/tags/Magnum.html">Magnum</a>,                      <a href="/blog/tags/Kubernetes.html">Kubernetes</a>                  </small>
+      </div>
+    </header>
+    <div class="entry-content padding-bottom">
+            <p>截止到这篇blog动笔时，当前的OpenStack master版本是Rocky，目前Magnum所支持的Kubernetes的扩展功能有：
+dashboard, DNS, proxy, 基于 Heapster的监控，基于Prometheus的监控，基于traefik的Ingress。此外还
+支持两种network driver: flannel 和 calico。关于network driver部分，我后续会再专门写一篇
+阐述。</p>
+<p>在上一篇<a href="http://openstacker.github.io/blog/2017/magnum-architecture">Magnum 入坑指南之一</a>里已经介绍了Magnum的基本安装和使用，
+其实说kubernetes是坑，以我做openstack多年的经验来说不算过分，kubernetes本身经过多年的发展，已经日趋稳定，但是围绕在它周边的众多
+附加服务之间的各种组合，真的是让人头大。不同服务之间的不同版本也许完全不能工作，同一个服务的不同版本因为快速迭代可能并不兼容，凡此种种。
+所以我现在写的这些也许过些日子回过头来看都很容易，但此时此刻，要想搭建一个production ready的k8s集群真的不是一般普通用户能轻松搞定的。
+当然由此也体现出此类 managed k8s service 的价值所在。</p>
+<p>书接上文，这篇主要说说 Magnum里面基于k8s所提供的其他几个周边服务。</p>
+<h2>k8s dashboard</h2>
+<p>Mangum 在部署 k8s 时默认会安装 k8s dashboard, 访问的方式也很简单，可以通过 k8s 
+proxy 从本机的浏览器进行访问。首先，在本机运行</p>
+<div class="highlight"><pre><span></span>kubectl proxy<br /></pre></div>
+
+<p><br />
+然后在本地的浏览器里输入：http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/</p>
+<h2>Prometheus 监控</h2>
+<p>不同于其他几个服务，Prometheus在Magnum中是需要通过label enable的，默认并不开启。如果要开启，则需要在template 或者创建cluster的时候指定
+lable ""prometheus_monitoring=true""。在我写这篇文章时，Magnum中的Prometheus存在一个Bug，原因是缺失RBAC相关信息，Patch在这里
+https://review.openstack.org/553654 截止到目前 Magnum中的Prometheus 仍然采用NodePort的方式访问，默认端口是30900, 所以在我的测试
+环境中可以直接通过 http://&lt; node's floating IP &gt;:30900/访问Prometheus的dashboard。这里值得注意的是，判断是否能正确拿到数据的标准就是
+在界面上能否绘制某个指标的图形，而再次之前最好先看看 Status -&gt; Targets里是否能看到数据。否则Targets里拿不到东西的话，是无法绘制图形的。</p>          </div>
+
+  </div>
+
+          </div>
+    <!-- /.wrapper -->
+
+    <!-- FOOTER -->
+    <footer class="footer footer-dark">
+      <div class="container">
+
+	<hr />
+
+	<div class="row">
+	  <div class="col-sm-6">
+	    <p class="copyright">
+              Created by <a href="https://openstacker.github.io">Feilong Wang</a> using
+              <a href="https://github.com/hyde/hyde">Hyde</a>.
+              <a href="https://github.com/openstacker/openstacker.github.io">Sources are
+                available</a>.
+              This work is licensed under a
+              <a rel="license"
+                 href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative
+                Commons Attribution-ShareAlike 3.0 Unported License</a>.
+              <br>
+              <br>
+              <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">
+                <img alt="Creative Commons License" style="border-width:0"
+                     src="/media/images/creative-commons.png">
+              </a>
+            </p>
+	  </div>
+	  <div class="col-sm-6 text-right">
+	   <img alt="Wechat ID: openstacker" src="/media/images/flwang_wechat.png" style="width:100px; height:100px"/>
+	  </div>
+	</div>
+      </div>
+    </footer>
+    <!-- /.footer -->
+
+    <!-- ScrollTop -->
+    <a href="#" class="scrolltop"><i></i></a>
+
+    
+          <!-- SCRIPTS -->
+    <script src="/media/js/jquery-2.1.3.min.js"></script>
+    <script src="/media/js/bootstrap.min.js"></script>
+    <script src="/media/js/plugins.js"></script>
+    <script src="/media/js/custom.js"></script>
+    <script src="/media/js/bootstrap-tab-bookmark.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76258151-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    
+
+  </body>
+</html>

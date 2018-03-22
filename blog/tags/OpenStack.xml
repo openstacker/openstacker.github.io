@@ -7,12 +7,12 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-02-27T14:07:04Z</updated>
+  <updated>2018-03-22T15:27:14Z</updated>
 
   <id>https://openstacker.github.io/blog/tags/OpenStack.xml</id>
 
       <entry>
-    <title type="html">Magnum 入坑指南</title>
+    <title type="html">Magnum 入坑指南之一</title>
     <author><name>Feilong Wang</name></author>
     <link href="https://openstacker.github.io/blog/2017/magnum-architecture"/>
     <updated>2017-06-23T12:01:00Z</updated>
@@ -27,6 +27,9 @@
         <category   scheme="/blog/tags"
                 term="Architecture"
                 label="Architecture" />
+        <category   scheme="/blog/tags"
+                term="Kubernetes"
+                label="Kubernetes" />
     
     <content type="html">
                   &lt;p&gt;现在容器大火，OpenStack走下坡路, Magnum 作为OpenStack中的容器相关项目最多也就算是不温不火吧。但实际上，很多客户的应用仍然是传统的Web应用，尤其在新西兰市场，很多客户也只是刚刚把应用从物理机迁移到我们的云上，实际使用上也仅仅是租个虚机，然后就不折腾了。离真正的原生云应用，或者容器化都有不短的距离。&lt;/p&gt;
@@ -90,16 +93,10 @@ OpenStack 部分的debug 比较简单，和debug OpenStack其他服务基本一�
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;通过 Magnum 按照的k8s 默认会安装 CoreDNS, 运行下面的代码可以验证 DNS 是否正常
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;kubectl &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; busybox nslookup kubernetes&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;kubectl &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; busybox nslookup kubernetes&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br /&gt;
+未完待续...&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;k8s dashboard&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Mangum 在部署 k8s 时默认会安装 k8s dashboard, 访问的方式也很简单，可以通过 k8s 
-proxy 从本机的浏览器进行访问&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Prometheus 监控&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;未完待续...&lt;/p&gt;      
+&lt;/ol&gt;      
           </content>
   </entry>
     <entry>

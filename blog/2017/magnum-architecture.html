@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>
-        Magnum 入坑指南
+        Magnum 入坑指南之一
         | Feilong Wang
     </title>
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
@@ -25,14 +25,14 @@
         <link rel="alternate" type="application/rss+xml"
           href="/blog/index.xml" title="flwang:/hacking/blog">
     
-        <meta property="og:title" content="Magnum 入坑指南">
+        <meta property="og:title" content="Magnum 入坑指南之一">
     <meta property="og:description" content="现在容器大火，OpenStack走下坡路, Magnum 作为OpenStack中的容器相关项目最多也就算是不温不火吧。但实际上，很多客户的应用仍然是传统的Web应用，尤其在新西兰市场，很多客户也只是刚刚把应用从物理机迁移到我们的云上，实际使用上也仅仅是租个虚机，然后就不折腾了。离真正的原生云应用，或者容器化都有不短的距离。">
     <meta property="og:image" content="https://openstacker.github.io/media/images/blog/2017/bernardo-ramonfaur-436536.jpg">
 
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:site" content="@juldanjou"/>
     <meta name="twitter:image:src" content='https://openstacker.github.io/media/images/blog/2017/bernardo-ramonfaur-436536.jpg'/>
-    <meta name="twitter:title" content="Magnum 入坑指南"/>
+    <meta name="twitter:title" content="Magnum 入坑指南之一"/>
     <meta name="twitter:domain" content="julien.danjou.info"/>
     <meta name="twitter:description" content="现在容器大火，OpenStack走下坡路, Magnum 作为OpenStack中的容器相关项目最多也就算是不温不火吧。但实际上，很多客户的应用仍然是传统的Web应用，尤其在新西兰市场，很多客户也只是刚刚把应用从物理机迁移到我们的云上，实际使用上也仅仅是租个虚机，然后就不折腾了。离真正的原生云应用，或者容器化都有不短的距离。"/>
         <script type="text/javascript">
@@ -90,7 +90,7 @@
 	<div class="container inforow">
 	  <div class="col-sm-10">
 	    <h1 class="white">
-                  Magnum 入坑指南
+                  Magnum 入坑指南之一
                   </h1>
 	  </div>
 	  <div class="col-sm-2 text-right">
@@ -117,7 +117,7 @@
         <small><i class="fa fa-calendar"></i>Friday 23 June 2017</small>
         <small>
           <i class="fa fa-folder"></i>
-                      <a href="/blog/tags/Magnum.html">Magnum</a>,                      <a href="/blog/tags/OpenStack.html">OpenStack</a>,                      <a href="/blog/tags/Architecture.html">Architecture</a>                  </small>
+                      <a href="/blog/tags/Magnum.html">Magnum</a>,                      <a href="/blog/tags/OpenStack.html">OpenStack</a>,                      <a href="/blog/tags/Architecture.html">Architecture</a>,                      <a href="/blog/tags/Kubernetes.html">Kubernetes</a>                  </small>
       </div>
     </header>
     <div class="entry-content padding-bottom">
@@ -182,16 +182,10 @@ OpenStack 部分的debug 比较简单，和debug OpenStack其他服务基本一�
 </li>
 <li>
 <p>通过 Magnum 按照的k8s 默认会安装 CoreDNS, 运行下面的代码可以验证 DNS 是否正常
-<div class="highlight"><pre><span></span>kubectl <span class="nb">exec</span> busybox nslookup kubernetes<br /></pre></div><br /></p>
+<div class="highlight"><pre><span></span>kubectl <span class="nb">exec</span> busybox nslookup kubernetes<br /></pre></div><br />
+未完待续...</p>
 </li>
-<li>k8s dashboard</li>
-</ol>
-<p>Mangum 在部署 k8s 时默认会安装 k8s dashboard, 访问的方式也很简单，可以通过 k8s 
-proxy 从本机的浏览器进行访问</p>
-<ol>
-<li>Prometheus 监控</li>
-</ol>
-<p>未完待续...</p>          </div>
+</ol>          </div>
 
   </div>
 

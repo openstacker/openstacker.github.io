@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
+  <title>
+    Blog  </title>
+    <link href="https://openstacker.github.io/blog/tags/Calico.xml" rel="self" />
+  
+    <link href="https://openstacker.github.io/blog/"/>
+  
+    
+  <updated>2018-03-22T15:27:13Z</updated>
+
+  <id>https://openstacker.github.io/blog/tags/Calico.xml</id>
+
+      <entry>
+    <title type="html">记一次Calico相关的网络问题debug过程</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2018/calico-debug"/>
+    <updated>2018-03-22T14:37:00Z</updated>
+    <published>2018-03-22T14:37:00Z</published>
+    <id>/blog/2018/calico-debug</id>
+        <category   scheme="/blog/tags"
+                term="Calico"
+                label="Calico" />
+        <category   scheme="/blog/tags"
+                term="Kubernetes"
+                label="Kubernetes" />
+    
+    <content type="html">
+                  &lt;p&gt;这篇blog 主要是用来记录我最近在开发Magnum的过程中，集成calico和kuberntes的过程中所遇到的一些问题，以及我对calico的一些粗浅的理解。&lt;/p&gt;
+&lt;h2&gt;什么是Calico&lt;/h2&gt;
+&lt;p&gt;calico 同flannel类似，为容器提供网络支持。&lt;/p&gt;
+&lt;h2&gt;为什么需要Calico&lt;/h2&gt;
+&lt;p&gt;提到calico 必然提到网络隔离，这是calico 区别于Flannel的主要一点。&lt;/p&gt;
+&lt;h2&gt;在K8s中使用Calico的一些坑&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;k8s master node 到底需不需要 calico-node&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;pod 和 k8s api server 的通信问题&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;关于一个calico相关问题的debug过程&lt;/h2&gt;
+&lt;p&gt;先把问题描述写这里：kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。其他pod正常。&lt;/p&gt;      
+          </content>
+  </entry>
+  
+
+</feed>
