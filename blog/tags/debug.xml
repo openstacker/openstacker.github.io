@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
+  <title>
+    Blog  </title>
+    <link href="https://openstacker.github.io/blog/tags/debug.xml" rel="self" />
+  
+    <link href="https://openstacker.github.io/blog/"/>
+  
+    
+  <updated>2018-06-06T00:56:54Z</updated>
+
+  <id>https://openstacker.github.io/blog/tags/debug.xml</id>
+
+      <entry>
+    <title type="html">How to debug golang in vscode</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2018/debug-go"/>
+    <updated>2018-06-05T14:02:00Z</updated>
+    <published>2018-06-05T14:02:00Z</published>
+    <id>/blog/2018/debug-go</id>
+        <category   scheme="/blog/tags"
+                term="go"
+                label="Go" />
+        <category   scheme="/blog/tags"
+                term="debug"
+                label="Debug" />
+    
+    <content type="html">
+                  &lt;p&gt;How to debug go in vscode&lt;/p&gt;      
+          </content>
+  </entry>
+  
+
+</feed>

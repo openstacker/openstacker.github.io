@@ -6,137 +6,147 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://openstacker.github.io/blog/tags/Architecture</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/CITA</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Calico</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Debug</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Glance</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Kubernetes</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/LAOWANG</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Magnum</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Nova</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/OpenStack</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Trove</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Wellington</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Windows</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/tags/Zaqar</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2018/calico-debug</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2018/cita-nz</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2018/debug-go</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://openstacker.github.io/blog/tags/debug</loc>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2018/di-san-xian</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://openstacker.github.io/blog/tags/go</loc>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/about</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2016</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2018/magnum-2</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2017/magnum-architecture</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2017/trove-journey-1</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2016/windows_image_support</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://openstacker.github.io/blog/2016/zaqar-mitaka-release</loc>
-    <lastmod>2018-06-06T00:46:38Z</lastmod>
+    <lastmod>2018-06-06T00:56:48Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>

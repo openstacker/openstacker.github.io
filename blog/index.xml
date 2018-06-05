@@ -7,12 +7,30 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-06-06T00:46:40Z</updated>
+  <updated>2018-06-06T00:56:49Z</updated>
 
   <id>https://openstacker.github.io/blog/index.xml</id>
 
       <entry>
-    <title type="html">我为什么要成立CITANZ（新西兰华人IT工程师协会）</title>
+    <title type="html">How to debug golang in vscode</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2018/debug-go"/>
+    <updated>2018-06-05T14:02:00Z</updated>
+    <published>2018-06-05T14:02:00Z</published>
+    <id>/blog/2018/debug-go</id>
+        <category   scheme="/blog/tags"
+                term="go"
+                label="Go" />
+        <category   scheme="/blog/tags"
+                term="debug"
+                label="Debug" />
+    
+    <content type="html">
+                  &lt;p&gt;How to debug go in vscode&lt;/p&gt;      
+          </content>
+  </entry>
+    <entry>
+    <title type="html">新西兰华人IT工程师协会 -- CITANZ</title>
     <author><name>Feilong Wang</name></author>
     <link href="https://openstacker.github.io/blog/2018/cita-nz"/>
     <updated>2018-05-25T14:02:00Z</updated>
