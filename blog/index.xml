@@ -7,12 +7,71 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-03-22T15:27:12Z</updated>
+  <updated>2018-06-06T00:46:40Z</updated>
 
   <id>https://openstacker.github.io/blog/index.xml</id>
 
       <entry>
-    <title type="html">记一次Calico相关的网络问题debug过程</title>
+    <title type="html">我为什么要成立CITANZ（新西兰华人IT工程师协会）</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2018/cita-nz"/>
+    <updated>2018-05-25T14:02:00Z</updated>
+    <published>2018-05-25T14:02:00Z</published>
+    <id>/blog/2018/cita-nz</id>
+        <category   scheme="/blog/tags"
+                term="Wellington"
+                label="Wellington" />
+        <category   scheme="/blog/tags"
+                term="CITA"
+                label="Cita" />
+    
+    <content type="html">
+                  &lt;p&gt;这篇博客放在这很久了，一直没空写完，趁着今天刚开完OpenStack社区的周会，我想尽量
+捋一捋思路，把它写完。&lt;/p&gt;
+&lt;h2&gt;为什么要瞎折腾&lt;/h2&gt;
+&lt;p&gt;CITA 的前身是我们在惠灵顿搞的华人IT meetup，依托于我们已经有的微信群（如果有国内
+的朋友想过来，或者新西兰其他城市的同仁想来惠灵顿发展，可以先加我们的大群了解一下情况。
+我们的微信群的名字是&lt;code&gt;风城天朝IT达人群&lt;/code&gt;）。Meetup 每月组织一次，每次请一位 speaker
+分享一个技术或非技术话题，但基本都是围绕着IT相关的。2016年11月我和孔令贤讲的第一期
+话题，关于OpenStack的一个introduction。到目前位置，我们已经成功的组织了近二十期的
+meetup，大家普遍反响强烈。&lt;/p&gt;
+&lt;p&gt;其实我不止一次提到过，我说我其实是典型的IT男，在国内的时候我对这种抛头露面，四处张罗
+的组织活动其实是排斥的。但到了国外之后，慢慢开始愿意折腾这些了。我自我刨析过可能的几个
+原因：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;年龄大了
+   这个很有意思，所谓岁月是把杀猪刀。很多小时候或年轻的时候不喜欢的东西，上了年纪
+   可能就喜欢了。打个不恰当的比方，我小时候特别不喜欢吃馅，家里吃饺子，我都把馅挖出
+   来只吃皮。但现在我非常喜欢吃饺子，有机会回哈尔滨也是最喜欢吃东方饺子王。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;人在异乡
+   这个应该是主要原因吧。除了“人在异乡为异客，每逢佳节倍思亲”的这种挥不去的思亲之情，
+   还有就是人在异乡的这种对友情的强烈渴望，渴望有更多的朋友，渴望有人能在工作和家庭
+   之外一起扯淡唠嗑，遇到问题彼此互相帮助。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;孤独无聊
+   这其实是我老婆说，我自己倒不觉得和孤独无聊有关系。每天弄俩孩子忙的脚打后脑勺，从
+   来都不知道无聊是什么感觉。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;CITA 的目标&lt;/h2&gt;
+&lt;p&gt;CITA目前是新西兰正是注册的非盈利组织，当然这边非营利组织分很多种，我们这种叫Society，
+不过我不确定翻译成中文应该怎么翻。目前我们在5月份刚刚完成了注册工作，其他各项工作
+也在逐步推进过程中。组织结构上，我们会有committee, working group 和member group，
+各司其职。&lt;/p&gt;
+&lt;p&gt;说回CITA的目标，CITA的目标往大了说，我们希望做新西兰最专业的华人IT组织。往小了说
+我们希望做一个团结互助的华人IT组织。其实对于CITA的目标，我个人是一直存在着某种理想
+主义的，我希望这是一个能够每一个人都去贡献的社区组织。&lt;/p&gt;
+&lt;h2&gt;如何联系我们&lt;/h2&gt;
+&lt;p&gt;如果真的有人能看到这里，那我先谢谢你了，如果对我们的工作感兴趣，或者只是码农想肉身
+翻墙，都可以联系我们。可以扫下面的二维码加我的微信，或者直接搜索我们的微信群。&lt;/p&gt;      
+          </content>
+  </entry>
+    <entry>
+    <title type="html">calico网络问题的debug过程</title>
     <author><name>Feilong Wang</name></author>
     <link href="https://openstacker.github.io/blog/2018/calico-debug"/>
     <updated>2018-03-22T14:37:00Z</updated>
@@ -28,9 +87,19 @@
     <content type="html">
                   &lt;p&gt;这篇blog 主要是用来记录我最近在开发Magnum的过程中，集成calico和kuberntes的过程中所遇到的一些问题，以及我对calico的一些粗浅的理解。&lt;/p&gt;
 &lt;h2&gt;什么是Calico&lt;/h2&gt;
-&lt;p&gt;calico 同flannel类似，为容器提供网络支持。&lt;/p&gt;
+&lt;p&gt;calico 同flannel类似，主要为容器提供网络支持。下面的文字摘自calico官方网站对其的描述。&lt;/p&gt;
+&lt;p&gt;Calico provides secure network connectivity for containers and virtual machine workloads.&lt;/p&gt;
+&lt;p&gt;Calico creates and manages a flat layer 3 network, assigning each workload a fully routable IP address. Workloads can communicate without IP encapsulation or network address translation for bare metal performance, easier troubleshooting, and better interoperability. In environments that require an overlay, Calico uses IP-in-IP tunneling or can work with other overlay networking such as flannel.&lt;/p&gt;
+&lt;p&gt;Calico also provides dynamic enforcement of network security rules. Using Calico’s simple policy language, you can achieve fine-grained control over communications between containers, virtual machine workloads, and bare metal host endpoints.&lt;/p&gt;
 &lt;h2&gt;为什么需要Calico&lt;/h2&gt;
-&lt;p&gt;提到calico 必然提到网络隔离，这是calico 区别于Flannel的主要一点。&lt;/p&gt;
+&lt;p&gt;通常提到calico必然提到网络隔离，这是calico 区别于Flannel的主要一点。因此，使用Calico主要是为了实现不同namespaces的网络隔离。&lt;/p&gt;
+&lt;h2&gt;calico 网络问题的debug过程&lt;/h2&gt;
+&lt;p&gt;这个问题实际上是我最近调试 calico 和 kubernetes所遇到的一个实际问题。具体症状是这样的：通过Magnum创建k8s 集群后，
+kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。其他pod正常。&lt;/p&gt;
+&lt;p&gt;下面是我的分析过程，参考了这篇文章()&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h2&gt;在K8s中使用Calico的一些坑&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -39,9 +108,7 @@
 &lt;li&gt;
 &lt;p&gt;pod 和 k8s api server 的通信问题&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;关于一个calico相关问题的debug过程&lt;/h2&gt;
-&lt;p&gt;先把问题描述写这里：kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。其他pod正常。&lt;/p&gt;      
+&lt;/ol&gt;      
           </content>
   </entry>
     <entry>
@@ -81,31 +148,7 @@ proxy 从本机的浏览器进行访问。首先，在本机运行&lt;/p&gt;
 lable &#34;&#34;prometheus_monitoring=true&#34;&#34;。在我写这篇文章时，Magnum中的Prometheus存在一个Bug，原因是缺失RBAC相关信息，Patch在这里
 https://review.openstack.org/553654 截止到目前 Magnum中的Prometheus 仍然采用NodePort的方式访问，默认端口是30900, 所以在我的测试
 环境中可以直接通过 http://&amp;lt; node&#39;s floating IP &amp;gt;:30900/访问Prometheus的dashboard。这里值得注意的是，判断是否能正确拿到数据的标准就是
-在界面上能否绘制某个指标的图形，而再次之前最好先看看 Status -&amp;gt; Targets里是否能看到数据。否则Targets里拿不到东西的话，是无法绘制图形的。&lt;/p&gt;      
-          </content>
-  </entry>
-    <entry>
-    <title type="html">惠灵顿华人IT Meetup 回顾与展望</title>
-    <author><name>Feilong Wang</name></author>
-    <link href="https://openstacker.github.io/blog/2018/chit-meetup"/>
-    <updated>2018-02-27T14:02:00Z</updated>
-    <published>2018-02-27T14:02:00Z</published>
-    <id>/blog/2018/chit-meetup</id>
-        <category   scheme="/blog/tags"
-                term="Wellington"
-                label="Wellington" />
-        <category   scheme="/blog/tags"
-                term="Meetup"
-                label="Meetup" />
-    
-    <content type="html">
-                  &lt;h2&gt;为什么搞这个meetup&lt;/h2&gt;
-&lt;p&gt;先占个坑，然后再写&lt;/p&gt;
-&lt;h2&gt;接下来该怎么搞&lt;/h2&gt;
-&lt;p&gt;先占个坑，然后再写
-&lt;div class=&#34;illustration pull-right icon&#34;&gt;
-  &lt;img src=&#34;/media/images/blog/2016/open-book.png&#34;&gt;
-&lt;/div&gt;&lt;/p&gt;      
+在界面上能否绘制某个指标的图形，而在此之前最好先检查 Status -&amp;gt; Targets里是否能看到数据。否则Targets里拿不到数据的话，是无法绘制图形的。&lt;/p&gt;      
           </content>
   </entry>
     <entry>

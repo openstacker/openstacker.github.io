@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
         <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>
-    Posts with tag Windows    | Feilong Wang
+        我为什么要成立CITANZ（新西兰华人IT工程师协会）
+        | Feilong Wang
     </title>
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
             <link href="/media/css/bootstrap.min.css" rel="stylesheet">
@@ -19,9 +19,21 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
     
+        <link href="/blog/2018/calico-debug" rel="prev">
         
-    <link rel="alternate" type="application/rss+xml" href="/blog/tags/Windows.xml" title="flwang:/hacking/blog – Windows">
+        <link rel="alternate" type="application/rss+xml"
+          href="/blog/index.xml" title="flwang:/hacking/blog">
+    
+        <meta property="og:title" content="我为什么要成立CITANZ（新西兰华人IT工程师协会）">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://openstacker.github.io/media/images/blog/2018/chit-meetup.jpeg">
 
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@juldanjou"/>
+    <meta name="twitter:image:src" content='https://openstacker.github.io/media/images/blog/2018/chit-meetup.jpeg'/>
+    <meta name="twitter:title" content="我为什么要成立CITANZ（新西兰华人IT工程师协会）"/>
+    <meta name="twitter:domain" content="julien.danjou.info"/>
+    <meta name="twitter:description" content=""/>
         <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -72,11 +84,13 @@
     <!-- WRAPPER -->
     <div class="wrapper">
 
-                  <div class="headcontent">
-        <div class="container">
+                  <div class="headcontent headcontent-md bg-sl-center overlay"
+           style="background-image: url('/media/images/blog/2018/chit-meetup.jpeg');">
+	<div class="container inforow">
 	  <div class="col-sm-10">
-	    <h1>
-            Posts with tag <strong>Windows</strong>            </h1>
+	    <h1 class="white">
+                  我为什么要成立CITANZ（新西兰华人IT工程师协会）
+                  </h1>
 	  </div>
 	  <div class="col-sm-2 text-right">
 	    <ol class="breadcrumb breadcrumb-arrow">
@@ -87,8 +101,8 @@
                 </a>
               </li>
                                                         <li class="active">
-                <a href="/blog/tags">
-                                    Tags
+                <a href="/blog/2018">
+                                    2018
                 </a>
               </li>
                             	    </ol>
@@ -96,164 +110,62 @@
         </div>
       </div>
 
-            <div class="container">
-          <div class="col-md-9 col-sm-7 posts">
-          <div class="container post format-image">
-      <div class="entry">
-	<header class="entry-header">
-	  <h2><a href="/blog/2016/windows_image_support">Windows Image Support</a></h2>
-	  <div class="meta">
-	    <small><i class="fa fa-calendar"></i>Monday 11 April 2016</small>
-	    <small>
-	      <i class="fa fa-folder"></i>
-                              <a href="/blog/tags/Glance.html">Glance</a>,                              <a href="/blog/tags/Nova.html">Nova</a>,                              <a href="/blog/tags/Windows.html">Windows</a>,                              <a href="/blog/tags/OpenStack.html">OpenStack</a>              	    </small>
-            
-	  </div>
-	</header>
-	<div class="entry-content">
-                      <a href="/blog/2016/windows_image_support">
-              <div class="blog-title-image" style="background-image: url('/media/images/blog/2016/wellington_waterfront_sculpture.jpg');">
-              </div>
-            </a>
-                              <p>最近Catalyst Cloud的公有云服务要支持Windows 镜像，但问题并不是上传个image那么简单，实际操作起来
-有很多问题。下面总结一下涉及的一些问题。</p>
-	  <a href="/blog/2016/windows_image_support.html" class="btn btn-default white">Read More</a>
-	</div>
+        <div class="container post">
+    <header class="entry-header">
+      <div class="meta">
+        <small><i class="fa fa-calendar"></i>Friday 25 May 2018</small>
+        <small>
+          <i class="fa fa-folder"></i>
+                      <a href="/blog/tags/Wellington.html">Wellington</a>,                      <a href="/blog/tags/CITA.html">CITA</a>                  </small>
       </div>
-    </div>
-    <hr>
-  
+    </header>
+    <div class="entry-content padding-bottom">
+            <p>这篇博客放在这很久了，一直没空写完，趁着今天刚开完OpenStack社区的周会，我想尽量
+捋一捋思路，把它写完。</p>
+<h2>为什么要瞎折腾</h2>
+<p>CITA 的前身是我们在惠灵顿搞的华人IT meetup，依托于我们已经有的微信群（如果有国内
+的朋友想过来，或者新西兰其他城市的同仁想来惠灵顿发展，可以先加我们的大群了解一下情况。
+我们的微信群的名字是<code>风城天朝IT达人群</code>）。Meetup 每月组织一次，每次请一位 speaker
+分享一个技术或非技术话题，但基本都是围绕着IT相关的。2016年11月我和孔令贤讲的第一期
+话题，关于OpenStack的一个introduction。到目前位置，我们已经成功的组织了近二十期的
+meetup，大家普遍反响强烈。</p>
+<p>其实我不止一次提到过，我说我其实是典型的IT男，在国内的时候我对这种抛头露面，四处张罗
+的组织活动其实是排斥的。但到了国外之后，慢慢开始愿意折腾这些了。我自我刨析过可能的几个
+原因：</p>
+<ol>
+<li>
+<p>年龄大了
+   这个很有意思，所谓岁月是把杀猪刀。很多小时候或年轻的时候不喜欢的东西，上了年纪
+   可能就喜欢了。打个不恰当的比方，我小时候特别不喜欢吃馅，家里吃饺子，我都把馅挖出
+   来只吃皮。但现在我非常喜欢吃饺子，有机会回哈尔滨也是最喜欢吃东方饺子王。</p>
+</li>
+<li>
+<p>人在异乡
+   这个应该是主要原因吧。除了“人在异乡为异客，每逢佳节倍思亲”的这种挥不去的思亲之情，
+   还有就是人在异乡的这种对友情的强烈渴望，渴望有更多的朋友，渴望有人能在工作和家庭
+   之外一起扯淡唠嗑，遇到问题彼此互相帮助。</p>
+</li>
+<li>
+<p>孤独无聊
+   这其实是我老婆说，我自己倒不觉得和孤独无聊有关系。每天弄俩孩子忙的脚打后脑勺，从
+   来都不知道无聊是什么感觉。</p>
+</li>
+</ol>
+<h2>CITA 的目标</h2>
+<p>CITA目前是新西兰正是注册的非盈利组织，当然这边非营利组织分很多种，我们这种叫Society，
+不过我不确定翻译成中文应该怎么翻。目前我们在5月份刚刚完成了注册工作，其他各项工作
+也在逐步推进过程中。组织结构上，我们会有committee, working group 和member group，
+各司其职。</p>
+<p>说回CITA的目标，CITA的目标往大了说，我们希望做新西兰最专业的华人IT组织。往小了说
+我们希望做一个团结互助的华人IT组织。其实对于CITA的目标，我个人是一直存在着某种理想
+主义的，我希望这是一个能够每一个人都去贡献的社区组织。</p>
+<h2>如何联系我们</h2>
+<p>如果真的有人能看到这里，那我先谢谢你了，如果对我们的工作感兴趣，或者只是码农想肉身
+翻墙，都可以联系我们。可以扫下面的二维码加我的微信，或者直接搜索我们的微信群。</p>          </div>
 
-    <div class="container pagination-bar text-center">
-      <ul class="pagination">
-                              </ul>
-    </div>
   </div>
 
-  <aside class="col-md-3 col-sm-5 sidebar m-center">
-    <!-- .widget -->
-    <div class="widget">
-      <h4>Tags</h4>
-      <ul class="category-list flat">
-                                                                                                                                                                                                                                                                                            <li>
-	  <a               href="/blog/tags/OpenStack">
-               OpenStack
-            <span class="text-right pull-right">
-              4
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Kubernetes">
-               Kubernetes
-            <span class="text-right pull-right">
-              3
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Magnum">
-               Magnum
-            <span class="text-right pull-right">
-              2
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/CITA">
-               CITA
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Glance">
-               Glance
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Zaqar">
-               Zaqar
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/LAOWANG">
-               LAOWANG
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Trove">
-               Trove
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Calico">
-               Calico
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a class="active"               href="/blog/tags/Windows">
-               Windows
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Debug">
-               Debug
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Architecture">
-               Architecture
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Wellington">
-               Wellington
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-                <li>
-	  <a               href="/blog/tags/Nova">
-               Nova
-            <span class="text-right pull-right">
-              1
-            </span>
-          </a>
-        </li>
-              </ul>
-    </div>
-    <!-- /.widget -->
-  </aside>
-
-      </div>
-                </div>
+          </div>
     <!-- /.wrapper -->
 
     <!-- FOOTER -->
@@ -310,7 +222,6 @@
 
     </script>
     
-
 
   </body>
 </html>

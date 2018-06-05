@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
   <title>
     Blog  </title>
-    <link href="https://openstacker.github.io/blog/tags/Wellington.xml" rel="self" />
+    <link href="https://openstacker.github.io/blog/tags/CITA.xml" rel="self" />
   
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-06-06T00:46:43Z</updated>
+  <updated>2018-06-06T00:46:41Z</updated>
 
-  <id>https://openstacker.github.io/blog/tags/Wellington.xml</id>
+  <id>https://openstacker.github.io/blog/tags/CITA.xml</id>
 
       <entry>
     <title type="html">我为什么要成立CITANZ（新西兰华人IT工程师协会）</title>

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>
-        记一次Calico相关的网络问题debug过程
+        calico网络问题的debug过程
         | Feilong Wang
     </title>
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
@@ -20,18 +20,19 @@
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
     
         <link href="/blog/2018/magnum-2" rel="prev">
-        
+            <link href="/blog/2018/cita-nz" rel="next">
+    
         <link rel="alternate" type="application/rss+xml"
           href="/blog/index.xml" title="flwang:/hacking/blog">
     
-        <meta property="og:title" content="记一次Calico相关的网络问题debug过程">
+        <meta property="og:title" content="calico网络问题的debug过程">
     <meta property="og:description" content="这篇blog 主要是用来记录我最近在开发Magnum的过程中，集成calico和kuberntes的过程中所遇到的一些问题，以及我对calico的一些粗浅的理解。">
     <meta property="og:image" content="https://openstacker.github.io/media/images/blog/2018/calico.png">
 
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:site" content="@juldanjou"/>
     <meta name="twitter:image:src" content='https://openstacker.github.io/media/images/blog/2018/calico.png'/>
-    <meta name="twitter:title" content="记一次Calico相关的网络问题debug过程"/>
+    <meta name="twitter:title" content="calico网络问题的debug过程"/>
     <meta name="twitter:domain" content="julien.danjou.info"/>
     <meta name="twitter:description" content="这篇blog 主要是用来记录我最近在开发Magnum的过程中，集成calico和kuberntes的过程中所遇到的一些问题，以及我对calico的一些粗浅的理解。"/>
         <script type="text/javascript">
@@ -89,7 +90,7 @@
 	<div class="container inforow">
 	  <div class="col-sm-10">
 	    <h1 class="white">
-                  记一次Calico相关的网络问题debug过程
+                  calico网络问题的debug过程
                   </h1>
 	  </div>
 	  <div class="col-sm-2 text-right">
@@ -122,9 +123,19 @@
     <div class="entry-content padding-bottom">
             <p>这篇blog 主要是用来记录我最近在开发Magnum的过程中，集成calico和kuberntes的过程中所遇到的一些问题，以及我对calico的一些粗浅的理解。</p>
 <h2>什么是Calico</h2>
-<p>calico 同flannel类似，为容器提供网络支持。</p>
+<p>calico 同flannel类似，主要为容器提供网络支持。下面的文字摘自calico官方网站对其的描述。</p>
+<p>Calico provides secure network connectivity for containers and virtual machine workloads.</p>
+<p>Calico creates and manages a flat layer 3 network, assigning each workload a fully routable IP address. Workloads can communicate without IP encapsulation or network address translation for bare metal performance, easier troubleshooting, and better interoperability. In environments that require an overlay, Calico uses IP-in-IP tunneling or can work with other overlay networking such as flannel.</p>
+<p>Calico also provides dynamic enforcement of network security rules. Using Calico’s simple policy language, you can achieve fine-grained control over communications between containers, virtual machine workloads, and bare metal host endpoints.</p>
 <h2>为什么需要Calico</h2>
-<p>提到calico 必然提到网络隔离，这是calico 区别于Flannel的主要一点。</p>
+<p>通常提到calico必然提到网络隔离，这是calico 区别于Flannel的主要一点。因此，使用Calico主要是为了实现不同namespaces的网络隔离。</p>
+<h2>calico 网络问题的debug过程</h2>
+<p>这个问题实际上是我最近调试 calico 和 kubernetes所遇到的一个实际问题。具体症状是这样的：通过Magnum创建k8s 集群后，
+kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。其他pod正常。</p>
+<p>下面是我的分析过程，参考了这篇文章()</p>
+<ol>
+<li></li>
+</ol>
 <h2>在K8s中使用Calico的一些坑</h2>
 <ol>
 <li>
@@ -133,9 +144,7 @@
 <li>
 <p>pod 和 k8s api server 的通信问题</p>
 </li>
-</ol>
-<h2>关于一个calico相关问题的debug过程</h2>
-<p>先把问题描述写这里：kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。其他pod正常。</p>          </div>
+</ol>          </div>
 
   </div>
 

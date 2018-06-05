@@ -7,12 +7,12 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-03-22T15:27:13Z</updated>
+  <updated>2018-06-06T00:46:41Z</updated>
 
   <id>https://openstacker.github.io/blog/tags/Calico.xml</id>
 
       <entry>
-    <title type="html">记一次Calico相关的网络问题debug过程</title>
+    <title type="html">calico网络问题的debug过程</title>
     <author><name>Feilong Wang</name></author>
     <link href="https://openstacker.github.io/blog/2018/calico-debug"/>
     <updated>2018-03-22T14:37:00Z</updated>
@@ -28,9 +28,19 @@
     <content type="html">
                   &lt;p&gt;这篇blog 主要是用来记录我最近在开发Magnum的过程中，集成calico和kuberntes的过程中所遇到的一些问题，以及我对calico的一些粗浅的理解。&lt;/p&gt;
 &lt;h2&gt;什么是Calico&lt;/h2&gt;
-&lt;p&gt;calico 同flannel类似，为容器提供网络支持。&lt;/p&gt;
+&lt;p&gt;calico 同flannel类似，主要为容器提供网络支持。下面的文字摘自calico官方网站对其的描述。&lt;/p&gt;
+&lt;p&gt;Calico provides secure network connectivity for containers and virtual machine workloads.&lt;/p&gt;
+&lt;p&gt;Calico creates and manages a flat layer 3 network, assigning each workload a fully routable IP address. Workloads can communicate without IP encapsulation or network address translation for bare metal performance, easier troubleshooting, and better interoperability. In environments that require an overlay, Calico uses IP-in-IP tunneling or can work with other overlay networking such as flannel.&lt;/p&gt;
+&lt;p&gt;Calico also provides dynamic enforcement of network security rules. Using Calico’s simple policy language, you can achieve fine-grained control over communications between containers, virtual machine workloads, and bare metal host endpoints.&lt;/p&gt;
 &lt;h2&gt;为什么需要Calico&lt;/h2&gt;
-&lt;p&gt;提到calico 必然提到网络隔离，这是calico 区别于Flannel的主要一点。&lt;/p&gt;
+&lt;p&gt;通常提到calico必然提到网络隔离，这是calico 区别于Flannel的主要一点。因此，使用Calico主要是为了实现不同namespaces的网络隔离。&lt;/p&gt;
+&lt;h2&gt;calico 网络问题的debug过程&lt;/h2&gt;
+&lt;p&gt;这个问题实际上是我最近调试 calico 和 kubernetes所遇到的一个实际问题。具体症状是这样的：通过Magnum创建k8s 集群后，
+kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。其他pod正常。&lt;/p&gt;
+&lt;p&gt;下面是我的分析过程，参考了这篇文章()&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h2&gt;在K8s中使用Calico的一些坑&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -39,9 +49,7 @@
 &lt;li&gt;
 &lt;p&gt;pod 和 k8s api server 的通信问题&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;关于一个calico相关问题的debug过程&lt;/h2&gt;
-&lt;p&gt;先把问题描述写这里：kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。其他pod正常。&lt;/p&gt;      
+&lt;/ol&gt;      
           </content>
   </entry>
   

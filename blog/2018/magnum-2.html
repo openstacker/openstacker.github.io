@@ -19,7 +19,7 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
     
-        <link href="/blog/2018/chit-meetup" rel="prev">
+        <link href="/blog/2018/di-san-xian" rel="prev">
             <link href="/blog/2018/calico-debug" rel="next">
     
         <link rel="alternate" type="application/rss+xml"
@@ -143,7 +143,7 @@ proxy 从本机的浏览器进行访问。首先，在本机运行</p>
 lable ""prometheus_monitoring=true""。在我写这篇文章时，Magnum中的Prometheus存在一个Bug，原因是缺失RBAC相关信息，Patch在这里
 https://review.openstack.org/553654 截止到目前 Magnum中的Prometheus 仍然采用NodePort的方式访问，默认端口是30900, 所以在我的测试
 环境中可以直接通过 http://&lt; node's floating IP &gt;:30900/访问Prometheus的dashboard。这里值得注意的是，判断是否能正确拿到数据的标准就是
-在界面上能否绘制某个指标的图形，而再次之前最好先看看 Status -&gt; Targets里是否能看到数据。否则Targets里拿不到东西的话，是无法绘制图形的。</p>          </div>
+在界面上能否绘制某个指标的图形，而在此之前最好先检查 Status -&gt; Targets里是否能看到数据。否则Targets里拿不到数据的话，是无法绘制图形的。</p>          </div>
 
   </div>
 
