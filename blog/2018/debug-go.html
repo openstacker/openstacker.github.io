@@ -120,7 +120,37 @@
       </div>
     </header>
     <div class="entry-content padding-bottom">
-            <p>How to debug go in vscode</p>          </div>
+            <p>最近因为折腾Magnum的关系，还是需要看一些go的代码，但是发现go语言虽好，但它的debug却仍然非常让人很不爽。不像Python, Go作为编译型语言，编译后是一个单独的二进制文件，不能像Python一样随时加入 
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pdb</span><br /><span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span><br /></pre></div><br />
+就可以加入断点。所以不得不花了点时间研究了一下，发现vscode通过安装devle 插件，还是实现在vscode里debug Go的代码的，不算是特别方便，但能用。</p>
+<ol>
+<li>打开vscode的编辑器，选择左边的debug 菜单项后会出现如下图所示的debug界面</li>
+</ol>
+<figure class="illustration center">
+  <img src="/media/images/blog/2018/debug-go-1.png">
+  </a>
+  <figcaption>创建配置文件</figcaption>
+</figure>
+
+<ol>
+<li>这时从左上角的下拉列表里就可以选择给你的某个项目加一个debug 配置文件，比如我们选择cloud-provider-openstack。默认情况下是生成一份空的配置文件，如下所示。</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="p">{</span><br />    <span class="err">//</span> <span class="err">Use</span> <span class="err">IntelliSense</span> <span class="err">to</span> <span class="err">learn</span> <span class="err">about</span> <span class="err">possible</span> <span class="err">attributes.</span><br />    <span class="err">//</span> <span class="err">Hover</span> <span class="err">to</span> <span class="err">view</span> <span class="err">descriptions</span> <span class="err">of</span> <span class="err">existing</span> <span class="err">attributes.</span><br />    <span class="err">//</span> <span class="err">For</span> <span class="err">more</span> <span class="err">information,</span> <span class="err">visit:</span> <span class="err">https://go.microsoft.com/fwlink/?linkid=830387</span><br />    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span><br />    <span class="nt">&quot;configurations&quot;</span><span class="p">:</span> <span class="p">[</span><br />        <br />        <span class="p">{</span><br />            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Launch&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;go&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;request&quot;</span><span class="p">:</span> <span class="s2">&quot;launch&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;debug&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;remotePath&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="mi">2345</span><span class="p">,</span><br />            <span class="nt">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;program&quot;</span><span class="p">:</span> <span class="s2">&quot;${fileDirname}&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;env&quot;</span><span class="p">:</span> <span class="p">{},</span><br />            <span class="nt">&quot;args&quot;</span><span class="p">:</span> <span class="p">[],</span><br />            <span class="nt">&quot;showLog&quot;</span><span class="p">:</span> <span class="kc">true</span><br />        <span class="p">}</span><br />    <span class="p">]</span><br /><span class="p">}</span><br /></pre></div>
+
+<p><br />
+3. 我们需要对它做一个简单的修改，变成这样。这里要修改的地方主要有，name, program, 和args, 当然如果你的程序不支持或者不需要args，那么完全可以忽略。</p>
+<div class="highlight"><pre><span></span><span class="p">{</span><br />    <span class="err">//</span> <span class="err">Use</span> <span class="err">IntelliSense</span> <span class="err">to</span> <span class="err">learn</span> <span class="err">about</span> <span class="err">possible</span> <span class="err">attributes.</span><br />    <span class="err">//</span> <span class="err">Hover</span> <span class="err">to</span> <span class="err">view</span> <span class="err">descriptions</span> <span class="err">of</span> <span class="err">existing</span> <span class="err">attributes.</span><br />    <span class="err">//</span> <span class="err">For</span> <span class="err">more</span> <span class="err">information,</span> <span class="err">visit:</span> <span class="err">https://go.microsoft.com/fwlink/?linkid=830387</span><br />    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span><br />    <span class="nt">&quot;configurations&quot;</span><span class="p">:</span> <span class="p">[</span><br />        <br />        <span class="p">{</span><br />            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;k8s-keystone-go&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;go&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;request&quot;</span><span class="p">:</span> <span class="s2">&quot;launch&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;debug&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;remotePath&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="mi">2345</span><span class="p">,</span><br />            <span class="nt">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;program&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceFolder}/cmd/k8s-keystone-auth/main.go&quot;</span><span class="p">,</span><br />            <span class="nt">&quot;env&quot;</span><span class="p">:</span> <span class="p">{},</span><br />            <span class="nt">&quot;args&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;--keystone-url=http://192.168.122.1/identity/v3/&quot;</span><span class="p">,</span><br />                     <span class="s2">&quot;--tls-cert-file=/etc/kubernetes/certs/server.crt&quot;</span><span class="p">,</span><br />                     <span class="s2">&quot;--tls-private-key-file=/etc/kubernetes/certs/server.key&quot;</span><span class="p">,</span><br />                     <span class="s2">&quot;--keystone-policy-file=/etc/kubernetes/keystone_webhook_policy.json&quot;</span><span class="p">,</span><br />                     <span class="s2">&quot;-v=6&quot;</span><span class="p">],</span><br />            <span class="nt">&quot;showLog&quot;</span><span class="p">:</span> <span class="kc">true</span><br />        <span class="p">}</span><br />    <span class="p">]</span><br /><span class="p">}</span><br /></pre></div>
+
+<p><br />4. 最后一步就是加断点了，和其他编辑器类似，直接点击左边的边框就可以给当前行加断点。然后直接按F5或者通过菜单执行debug就可以了，具体见下图。</p>
+<figure class="illustration center">
+  <img src="/media/images/blog/2018/debug-go-2.png">
+  </a>
+  <figcaption>执行debug</figcaption>
+</figure>
+
+<p>更多详细的配置，请参考下面两个链接，enjoy your go journey!</p>
+<p>[1] https://github.com/Microsoft/vscode-go/wiki/Debugging-Go-code-using-VS-Code
+[2] https://code.visualstudio.com/docs/editor/debugging#_launch-configurations</p>          </div>
 
   </div>
 
