@@ -7,7 +7,7 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-06-08T15:42:14Z</updated>
+  <updated>2018-07-20T07:28:44Z</updated>
 
   <id>https://openstacker.github.io/blog/tags/CITA.xml</id>
 
@@ -27,7 +27,7 @@
     
     <content type="html">
                   &lt;p&gt;这篇博客放在这很久了，一直没空写完，趁着今天刚开完OpenStack社区的周会，我想尽量
-捋一捋思路，把它写完。&lt;/p&gt;
+捋一捋思路，把它写完。主要是总结一下我的心路历程。&lt;/p&gt;
 &lt;h2&gt;为什么要瞎折腾&lt;/h2&gt;
 &lt;p&gt;CITA 的前身是我们在惠灵顿搞的华人IT meetup，依托于我们已经有的微信群（如果有国内
 的朋友想过来，或者新西兰其他城市的同仁想来惠灵顿发展，可以先加我们的大群了解一下情况。

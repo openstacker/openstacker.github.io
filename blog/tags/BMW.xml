@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
+  <title>
+    Blog  </title>
+    <link href="https://openstacker.github.io/blog/tags/BMW.xml" rel="self" />
+  
+    <link href="https://openstacker.github.io/blog/"/>
+  
+    
+  <updated>2018-07-20T07:28:44Z</updated>
+
+  <id>https://openstacker.github.io/blog/tags/BMW.xml</id>
+
+      <entry>
+    <title type="html">如何安装 BMW seat occupancy/belt sensor bypass</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2018/install-bmw-seat-belt-sensor-bypass"/>
+    <updated>2018-06-25T06:37:00Z</updated>
+    <published>2018-06-25T06:37:00Z</published>
+    <id>/blog/2018/install-bmw-seat-belt-sensor-bypass</id>
+        <category   scheme="/blog/tags"
+                term="BMW"
+                label="Bmw" />
+    
+    <content type="html">
+                  &lt;p&gt;这篇blog主要是用来记录我最近在修理宝马的座椅传感器和安全带传感器的过程。先简单介绍一下
+背景。我有一辆2014年刚来新西兰的时候买的BMW 320i, 2006年的车，买的时候8万公里，现在已经
+13万公里，12年车龄的老马了。工业化生产产生的一个副作用就是如果一个产品的某个型号
+有问题的话，那么基本这个问题就会是个通病，从概率上来说很难避免。具体到E90这一代的3系
+来说，在我拥有这辆车的4年里我基本经历了这一代3系的好几个常见问题：烧机油/渗油，点火线圈，
+以及我们今天要说的气囊灯和安全带灯的故障。&lt;/p&gt;
+&lt;h2&gt;背景介绍&lt;/h2&gt;
+&lt;p&gt;在开了4年，近5万公里之后，大概在一年之前，当有人坐到车的副驾驶上的时候，仪表盘上的气囊灯
+就会亮起，后面发展到安全带灯也会跟着亮，场面非常壮观。那么问题来了，1. 不管它行不行 2. 修的话得多少钱。&lt;/p&gt;
+&lt;figure class=&#34;illustration center&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2018/bmw-0.jpg&#34;&gt;
+  &lt;/a&gt;
+  &lt;figcaption&gt;故障灯&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;先说第一个问题，不修行不行？ 答案是不行，原因有两个。第一个，每年新西兰本地的车检不能过。第二个是会影响安全，简单来说可能导致的车辆发生撞击时气囊无法弹出。&lt;/p&gt;
+&lt;p&gt;那么第二个问题，修的话得多少钱，我没具体问过当地的dealer, 也就是国内常说的4S店，但我保守估计，人工加零件没个四五百纽币下不来。&lt;/p&gt;
+&lt;p&gt;所以，剩下的选择就不多了，舍不得花钱就只能自己修了。好在网上资料很多，很容易找到解决方案。这里也建议各位买二手车的朋友，尤其是二手欧洲车的朋友，尽量选择比较常见的，流行
+的model, 这样无论是配件还是维修方法都比较容易找到。&lt;/p&gt;
+&lt;h2&gt;什么是座椅占位传感器 (Seat Occupancy Sensor)&lt;/h2&gt;
+&lt;p&gt;我没有找到专门关于座椅占位传感器的定义，根据我的理解它的主要作用是用来判断两点，第一，座椅上
+有没有人，第二，如果有人的话从重量判断是成人还是儿童。但是根据&lt;a href=&#34;https://www.newtis.info/tisv2/a/en/f10-520d-lim/components-connectors/components/components-with-a/a64-seat-occupancy-detection-front-passenger/XEeRpcH&#34;&gt;这篇资料&lt;/a&gt;
+的说法是欧规和美规不同，美规的会判断是否是成人或儿童，欧规的不会。我的车是从日本进口的，所以
+我也不确定算欧规还是美规。&lt;/p&gt;
+&lt;h2&gt;How to fix&lt;/h2&gt;
+&lt;p&gt;Fix这种 sensor 的问题，通常来说最常见的方案当然是换新的sensor, 但是上面说了，太贵了。那么
+转而选择简单廉价的解决方案，就是选择sensor bypass。其实我刚看到这种bypass时，是不太信任的，
+第一感觉就是觉得不安全，bypass 这个单词给了我很大的误解，我以为就像安全带bypass一样，会影响
+安全，但其实不是的。它只是不利用原有的sensor, 而是模拟一个信号传送给行车电脑。具体到这个
+seat occupancy sensor bypass 它会模拟一个信号，以告诉行车电脑，座位上有个成年人。但问题
+也来了，这会导致在开车时，即使副驾驶座位上没有人，行车电脑也会提示安全带没有系。所以，还需要另外
+一个sensor bypass, 针对安全带的sensor bypass, 也就是告诉行车电脑，安全带已经系上了。所以
+其实看到这里你就明白了，这个组合并不完美，因为它意味着即使副驾驶没有系上安全带，行车电脑也不会提示了。
+不过这部分还有待我进一步观察和证明。&lt;/p&gt;
+&lt;h4&gt;具体的安装步骤&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;座椅占位传感器的安装&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这部分的安装在宝马3系和5系上的安装应该都是一样的，在副驾驶的后面可以摸到类似下图左边那样的一对接头，
+拔下来把下图左边这个bypass 插上就好了。我自己用的也是从这家买的。它上面的黑色的那些
+设置是针对欧规和美规的不同，需要做细微的调整，具体你买零件的时候它给的说明书里会写明。&lt;/p&gt;
+&lt;figure class=&#34;illustration center&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2018/bmw-1.jpg&#34;&gt;
+  &lt;/a&gt;
+  &lt;figcaption&gt;零件&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ol&gt;
+&lt;li&gt;安全带sensor bypass&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;接下来安全带的那个sensor bypass的安装就比较麻烦了。先要把座椅調整到最后，尽量腾出空间来。第一步需要先把那个黄色的大线盒从黑色的支架上取下来，&lt;/p&gt;
+&lt;figure class=&#34;illustration center&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2018/bmw-2.jpg&#34;&gt;
+  &lt;/a&gt;
+  &lt;figcaption&gt;整个线盒&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;然后参考下面的图把里面的几个插头依次取出，那个L型的就是安全带的了。&lt;/p&gt;
+&lt;figure class=&#34;illustration center&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2018/bmw-4.jpg&#34;&gt;
+  &lt;/a&gt;
+  &lt;figcaption&gt;取出插头&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;这个就是控制安全带的接头&lt;/p&gt;
+&lt;figure class=&#34;illustration center&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2018/bmw-3.jpg&#34;&gt;
+  &lt;/a&gt;
+  &lt;figcaption&gt;控制安全带的sensor接头&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;替换插针，这一步也很麻烦，没做过的很难取出插针，需要用一个很细的那种螺丝刀，耐心地一点点的把针顶出来，然后替换上最上面图中右侧的那两个针脚，注意顺序不要搞错。&lt;/p&gt;
+&lt;figure class=&#34;illustration center&#34;&gt;
+  &lt;img src=&#34;/media/images/blog/2018/bmw-5.jpg&#34;&gt;
+  &lt;/a&gt;
+  &lt;figcaption&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;都做完之后，按原顺序把这些接头再放回去，整个大线盒放回。&lt;/p&gt;
+&lt;p&gt;具体可以参考这家ebay卖家的&lt;a href=&#34;https://www.ebay.com/itm/Seat-Occupancy-Mat-Bypass-For-BMW-E90E91E92E81E87X3X5X6Z4-Sensor-Airbag-Emulator-/322485054023&#34;&gt;安装过程&lt;/a&gt;，&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;清除错误码&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这一步最好还是找个dealer或者认识的华人修车行帮你清一下错误码，他们有专用的工具，基本上可以在5分钟之内搞定。但如果是自己买OBD的线，然后再自己下载相应品牌的软件，再调试
+整个过程费时费力，效果还往往不好，不要问我是怎么知道的。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Tips&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我最近总结的小tips就是根据自己的时间情况，可以不用想着一次装完。可以分几次，其实大部分时间都是花在了摸索如何拆的过程。不管是换灯泡，还是换这种sensor bypass，都是
+花了很多时间查找如何拆/装，以及多次的不断尝试。最后装那一下反倒不难。&lt;/p&gt;      
+          </content>
+  </entry>
+  
+
+</feed>

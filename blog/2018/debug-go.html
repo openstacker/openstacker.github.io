@@ -20,12 +20,13 @@
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
     
         <link href="/blog/2018/cita-nz" rel="prev">
-        
+            <link href="/blog/2018/install-bmw-seat-belt-sensor-bypass" rel="next">
+    
         <link rel="alternate" type="application/rss+xml"
           href="/blog/index.xml" title="flwang:/hacking/blog">
     
         <meta property="og:title" content="How to debug golang in vscode">
-    <meta property="og:description" content="">
+    <meta property="og:description" content="最近因为折腾Magnum的关系，还是需要看一些go的代码，但是发现go语言虽好，但它的debug却仍然非常让人很不爽。不像Python, Go作为编译型语言，编译后是一个单独的二进制文件，不能像Python一样随时加入">
     <meta property="og:image" content="https://openstacker.github.io/media/images/blog/2018/go-debug.jpg">
 
     <meta name="twitter:card" content="summary"/>
@@ -33,7 +34,7 @@
     <meta name="twitter:image:src" content='https://openstacker.github.io/media/images/blog/2018/go-debug.jpg'/>
     <meta name="twitter:title" content="How to debug golang in vscode"/>
     <meta name="twitter:domain" content="julien.danjou.info"/>
-    <meta name="twitter:description" content=""/>
+    <meta name="twitter:description" content="最近因为折腾Magnum的关系，还是需要看一些go的代码，但是发现go语言虽好，但它的debug却仍然非常让人很不爽。不像Python, Go作为编译型语言，编译后是一个单独的二进制文件，不能像Python一样随时加入"/>
         <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -120,8 +121,10 @@
       </div>
     </header>
     <div class="entry-content padding-bottom">
-            <p>最近因为折腾Magnum的关系，还是需要看一些go的代码，但是发现go语言虽好，但它的debug却仍然非常让人很不爽。不像Python, Go作为编译型语言，编译后是一个单独的二进制文件，不能像Python一样随时加入 
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pdb</span><br /><span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span><br /></pre></div><br />
+            <p>最近因为折腾Magnum的关系，还是需要看一些go的代码，但是发现go语言虽好，但它的debug却仍然非常让人很不爽。不像Python, Go作为编译型语言，编译后是一个单独的二进制文件，不能像Python一样随时加入 </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pdb</span><br /><span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span><br /></pre></div>
+
+<p><br />
 就可以加入断点。所以不得不花了点时间研究了一下，发现vscode通过安装devle 插件，还是实现在vscode里debug Go的代码的，不算是特别方便，但能用。</p>
 <ol>
 <li>打开vscode的编辑器，选择左边的debug 菜单项后会出现如下图所示的debug界面</li>
@@ -172,11 +175,11 @@
                 available</a>.
               This work is licensed under a
               <a rel="license"
-                 href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative
-                Commons Attribution-ShareAlike 3.0 Unported License</a>.
+                 href="//creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">Creative
+                Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
               <br>
               <br>
-              <a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/deed.en_US">
+              <a rel="license" href="//creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">
                 <img alt="Creative Commons License" style="border-width:0"
                      src="/media/images/creative-commons.png">
               </a>

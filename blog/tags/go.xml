@@ -7,7 +7,7 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-06-08T15:42:16Z</updated>
+  <updated>2018-07-20T07:28:47Z</updated>
 
   <id>https://openstacker.github.io/blog/tags/go.xml</id>
 
@@ -26,8 +26,10 @@
                 label="Debug" />
     
     <content type="html">
-                  &lt;p&gt;最近因为折腾Magnum的关系，还是需要看一些go的代码，但是发现go语言虽好，但它的debug却仍然非常让人很不爽。不像Python, Go作为编译型语言，编译后是一个单独的二进制文件，不能像Python一样随时加入 
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pdb&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;n&#34;&gt;pdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;set_trace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br /&gt;
+                  &lt;p&gt;最近因为折腾Magnum的关系，还是需要看一些go的代码，但是发现go语言虽好，但它的debug却仍然非常让人很不爽。不像Python, Go作为编译型语言，编译后是一个单独的二进制文件，不能像Python一样随时加入 &lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pdb&lt;/span&gt;&lt;br /&gt;&lt;span class=&#34;n&#34;&gt;pdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;set_trace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
 就可以加入断点。所以不得不花了点时间研究了一下，发现vscode通过安装devle 插件，还是实现在vscode里debug Go的代码的，不算是特别方便，但能用。&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;打开vscode的编辑器，选择左边的debug 菜单项后会出现如下图所示的debug界面&lt;/li&gt;
