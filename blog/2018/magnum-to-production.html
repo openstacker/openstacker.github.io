@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>
+        Journey of Magnum to Production
+        | Feilong Wang
+    </title>
+        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+            <link href="/media/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/media/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/media/css/animate.css" rel="stylesheet">
+    <link href="/media/css/style.css" rel="stylesheet">
+    <link href="/media/css/style-customized.css" rel="stylesheet">
+    <link href="/media/css/pygments.css" rel="stylesheet">
+    <link href="/media/css/flag-icon.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
+    
+        <link href="/blog/2018/install-bmw-seat-belt-sensor-bypass" rel="prev">
+        
+        <link rel="alternate" type="application/rss+xml"
+          href="/blog/index.xml" title="flwang:/hacking/blog">
+    
+        <meta property="og:title" content="Journey of Magnum to Production">
+    <meta property="og:description" content="在上一篇Magnum 入坑指南之一和Magnum 入坑指南之二里 已经介绍了Magnum的基本安装和使用。这篇文章主要用来记录我们在将Magnum部署到生产环境时所遇到的问题，也好作为今年Berlin Summit的presentation 材料。 到目前为止，我们在上prod/preprod的过程中遇到了两个问题。">
+    <meta property="og:image" content="https://openstacker.github.io/media/images/blog/2018/fedora-cloud-init.png">
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@juldanjou"/>
+    <meta name="twitter:image:src" content='https://openstacker.github.io/media/images/blog/2018/fedora-cloud-init.png'/>
+    <meta name="twitter:title" content="Journey of Magnum to Production"/>
+    <meta name="twitter:domain" content="julien.danjou.info"/>
+    <meta name="twitter:description" content="在上一篇Magnum 入坑指南之一和Magnum 入坑指南之二里 已经介绍了Magnum的基本安装和使用。这篇文章主要用来记录我们在将Magnum部署到生产环境时所遇到的问题，也好作为今年Berlin Summit的presentation 材料。 到目前为止，我们在上prod/preprod的过程中遇到了两个问题。"/>
+        <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'None', 'auto', {'allowLinker': true});
+      ga('send', 'pageview');
+    </script>
+      </head>
+  <body class="archive">
+        <!-- HEADER -->
+    <header class="header header-dark no-sticky">
+      <nav class="navbar container">
+	<div class="navbar-header">
+          <button class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <a class="navbar-brand" href="/">
+            <img src="/media/images/flwang.jpg"
+                 class="img-circle img-thumbnail"
+                 alt="Feilong Wang">
+            OpenStack老兵
+          </a>
+        </div>
+	<div id="navbar" class="navbar-collapse collapse">
+	  <ul class="nav navbar-nav pull-right">
+                                    <li>
+              <a href="/about">
+                                <span class="glyphicon glyphicon-user"></span>
+                                About
+              </a>
+            </li>
+                                    <li class="active">
+              <a href="/blog">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Blog
+              </a>
+            </li>
+                                  </ul>
+	</div>
+      </nav>
+    </header>
+    <!-- /.header -->
+
+    <!-- WRAPPER -->
+    <div class="wrapper">
+
+                  <div class="headcontent headcontent-md bg-sl-center overlay"
+           style="background-image: url('/media/images/blog/2018/fedora-cloud-init.png');">
+	<div class="container inforow">
+	  <div class="col-sm-10">
+	    <h1 class="white">
+                  Journey of Magnum to Production
+                  </h1>
+	  </div>
+	  <div class="col-sm-2 text-right">
+	    <ol class="breadcrumb breadcrumb-arrow">
+                                                                      <li>
+                <a href="/blog">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    Blog
+                </a>
+              </li>
+                                                        <li class="active">
+                <a href="/blog/2018">
+                                    2018
+                </a>
+              </li>
+                            	    </ol>
+          </div>
+        </div>
+      </div>
+
+        <div class="container post">
+    <header class="entry-header">
+      <div class="meta">
+        <small><i class="fa fa-calendar"></i>Monday 01 October 2018</small>
+        <small>
+          <i class="fa fa-folder"></i>
+                      <a href="/blog/tags/Magnum.html">Magnum</a>,                      <a href="/blog/tags/Fedora-Atomic.html">Fedora-Atomic</a>,                      <a href="/blog/tags/Cloud-init.html">Cloud-init</a>,                      <a href="/blog/tags/Kubernetes.html">Kubernetes</a>                  </small>
+      </div>
+    </header>
+    <div class="entry-content padding-bottom">
+            <p>在上一篇<a href="http://openstacker.github.io/blog/2018/magnum-architecture">Magnum 入坑指南之一</a>和<a href="http://openstacker.github.io/blog/2017/magnum-2">Magnum 入坑指南之二</a>里
+已经介绍了Magnum的基本安装和使用。这篇文章主要用来记录我们在将Magnum部署到生产环境时所遇到的问题，也好作为今年Berlin Summit的presentation 材料。</p>
+<p>到目前为止，我们在上prod/preprod的过程中遇到了两个问题。</p>
+<h2>anti-affinity policy</h2>
+<p>这个其实是我去年做的一个feature, 简单来说就是在创建k8s cluster时，将master节点和node节点放到一个server group里，然后设置server group的affinity policy 为soft-anti-affinity或者
+anti-affinity, 从而使各个节点在schedule时能够被创建到不同的物理机上，避免node节点拥挤到一个节点上。</p>
+<p>但是我们的环境里暂时还不支持soft-anti-affinity, 这个我们实现没有测试到，还好可以直接在Magnum cluster show里面看到所以并没有浪费时间。</p>
+<h2>Cloud-init 的奇怪问题</h2>
+<p>接下来，我们遇到了cloud-init的问题。root cause说来也简单，就是我们的preprod太慢了，慢导致了很多问题，只不过各种问题的表象没有看起来那么直观。
+回到我们所遇到的问题，Magnum所创建的instance无法注入keypair, 导致无法ssh到instance内debug。当然问题看起来很简单，公钥没有成功注入。接下来我们发现公钥没有注入的原因就是
+cloud-init初始化就失败了。不得已，我又专门build了一个带用户名密码的 Fedora Atomic 镜像。重新创建 k8s cluster, 然后登录虚机，查看cloud-init.log 发现问题的根源在于
+当 cloud-init 在试图和 Nova的metadata API连接时出现了超时，默认的timeout是5秒钟。通过查阅文档发现，可以通过更改/etc/cloud/cloud.cfg, 更改timeout时间，具体修改如下：</p>
+<div class="highlight"><pre><span></span>datasource:<br />  OpenStack:<br />    metadata_urls: <span class="o">[</span> <span class="s1">&#39;http://169.254.169.254:80&#39;</span> <span class="o">]</span><br />    dsmode: net<br />    timeout: <span class="m">50</span><br />    max_wait: <span class="m">120</span><br /></pre></div>
+
+<p><br />
+然而，这种方式并不能完全解决问题，具体看下面的log</p>
+<div class="highlight"><pre><span></span><span class="m">2018</span>-09-30 <span class="m">09</span>:34:16,875 - handlers.py<span class="o">[</span>DEBUG<span class="o">]</span>: start: init-network/search-OpenStack: searching <span class="k">for</span> network data from DataSourceOpenStack<br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:16,875 - __init__.py<span class="o">[</span>DEBUG<span class="o">]</span>: Seeing <span class="k">if</span> we can get any data from &lt;class <span class="s1">&#39;cloudinit.sources.DataSourceOpenStack.DataSourceOpenStack&#39;</span>&gt;<br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:16,876 - url_helper.py<span class="o">[</span>DEBUG<span class="o">]</span>: <span class="o">[</span><span class="m">0</span>/1<span class="o">]</span> open <span class="s1">&#39;http://169.254.169.254:80/openstack&#39;</span> with <span class="o">{</span><span class="s1">&#39;url&#39;</span>: <span class="s1">&#39;http://169.254.169.254:80/openstack&#39;</span>, <span class="s1">&#39;allow_redirects&#39;</span>: True, <span class="s1">&#39;method&#39;</span>: <span class="s1">&#39;GET&#39;</span>, <span class="s1">&#39;timeout&#39;</span>: <span class="m">50</span>.0, <span class="s1">&#39;headers&#39;</span>: <span class="o">{</span><span class="s1">&#39;User-Agent&#39;</span>: <span class="s1">&#39;Cloud-Init/0.7.9&#39;</span><span class="o">}}</span> configuration<br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:28,873 - url_helper.py<span class="o">[</span>DEBUG<span class="o">]</span>: Read from http://169.254.169.254:80/openstack <span class="o">(</span><span class="m">200</span>, 50b<span class="o">)</span> after <span class="m">1</span> attempts<br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:28,874 - DataSourceOpenStack.py<span class="o">[</span>DEBUG<span class="o">]</span>: Using metadata source: <span class="s1">&#39;http://169.254.169.254:80&#39;</span><br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:28,874 - url_helper.py<span class="o">[</span>DEBUG<span class="o">]</span>: <span class="o">[</span><span class="m">0</span>/6<span class="o">]</span> open <span class="s1">&#39;http://169.254.169.254:80/openstack&#39;</span> with <span class="o">{</span><span class="s1">&#39;url&#39;</span>: <span class="s1">&#39;http://169.254.169.254:80/openstack&#39;</span>, <span class="s1">&#39;allow_redirects&#39;</span>: True, <span class="s1">&#39;method&#39;</span>: <span class="s1">&#39;GET&#39;</span>, <span class="s1">&#39;timeout&#39;</span>: <span class="m">5</span>.0, <span class="s1">&#39;headers&#39;</span>: <span class="o">{</span><span class="s1">&#39;User-Agent&#39;</span>: <span class="s1">&#39;Cloud-Init/0.7.9&#39;</span><span class="o">}}</span> configuration<br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:33,885 - openstack.py<span class="o">[</span>DEBUG<span class="o">]</span>: Unable to <span class="nb">read</span> openstack versions from http://169.254.169.254:80 due to: HTTPConnectionPool<span class="o">(</span><span class="nv">host</span><span class="o">=</span><span class="s1">&#39;169.254.169.254&#39;</span>, <span class="nv">port</span><span class="o">=</span><span class="m">80</span><span class="o">)</span>: Read timed out. <span class="o">(</span><span class="nb">read</span> <span class="nv">timeout</span><span class="o">=</span><span class="m">5</span>.0<span class="o">)</span><br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:33,885 - openstack.py<span class="o">[</span>DEBUG<span class="o">]</span>: Selected version <span class="s1">&#39;latest&#39;</span> from <span class="o">[]</span><br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:33,886 - url_helper.py<span class="o">[</span>DEBUG<span class="o">]</span>: <span class="o">[</span><span class="m">0</span>/6<span class="o">]</span> open <span class="s1">&#39;http://169.254.169.254:80/openstack/latest/meta_data.json&#39;</span> with <span class="o">{</span><span class="s1">&#39;url&#39;</span>: <span class="s1">&#39;http://169.254.169.254:80/openstack/latest/meta_data.json&#39;</span>, <span class="s1">&#39;allow_redirects&#39;</span>: True, <span class="s1">&#39;method&#39;</span>: <span class="s1">&#39;GET&#39;</span>, <span class="s1">&#39;timeout&#39;</span>: <span class="m">5</span>.0, <span class="s1">&#39;headers&#39;</span>: <span class="o">{</span><span class="s1">&#39;User-Agent&#39;</span>: <span class="s1">&#39;Cloud-Init/0.7.9&#39;</span><span class="o">}}</span> configuration<br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:38,894 - openstack.py<span class="o">[</span>DEBUG<span class="o">]</span>: Failed reading mandatory path http://169.254.169.254:80/openstack/latest/meta_data.json due to: HTTPConnectionPool<span class="o">(</span><span class="nv">host</span><span class="o">=</span><span class="s1">&#39;169.254.169.254&#39;</span>, <span class="nv">port</span><span class="o">=</span><span class="m">80</span><span class="o">)</span>: Read timed out. <span class="o">(</span><span class="nb">read</span> <span class="nv">timeout</span><span class="o">=</span><span class="m">5</span>.0<span class="o">)</span><br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:38,894 - util.py<span class="o">[</span>DEBUG<span class="o">]</span>: Crawl of openstack metadata service took <span class="m">10</span>.020 seconds<br /><span class="m">2018</span>-09-30 <span class="m">09</span>:34:38,895 - handlers.py<span class="o">[</span>DEBUG<span class="o">]</span>: finish: init-network/search-OpenStack: SUCCESS: no network data found from DataSourceOpenStack<br /></pre></div>
+
+<p><br />
+这个timeout 只对第一个request 起了作用，后面的request仍然是按照 5 秒钟作为timeout。我研究到这里的时候已经后半夜两点了，不想再研究只对第一个request 起作用了，所以我决定直接改代码。</p>
+<p>然而我发现在 Fedora Atomic, 即使你是root 用户，也是不能直接修改 cloud-init的代码的，这部分代码是只读的。</p>
+<p>要修改这部分只读的代码，需要先知道当前deploy的host status, 可以通过如下命令获得：</p>
+<div class="highlight"><pre><span></span><span class="o">[</span>fedora@k8s-cluster-1-adbneq5un4ok-master-0 log<span class="o">]</span>$ sudo atomic host status<br />State: idle<br />Deployments:<br />* fedora-atomic:fedora/27/x86_64/atomic-host<br />                   Version: <span class="m">27</span>.81 <span class="o">(</span><span class="m">2018</span>-02-12 <span class="m">17</span>:50:48<span class="o">)</span><br />                    Commit: b25bde0109441817f912ece57ca1fc39efc60e6cef4a7a23ad9de51b1f36b742<br />              GPGSignature: Valid signature by 860E19B0AFA800A1751881A6F55E7430F5282EE4<br /></pre></div>
+
+<p><br />
+接下来再通过上面命令得到的commit ID, 通过chroot 命令切换到相应的commit下，这时候就可以读写了。</p>
+<div class="highlight"><pre><span></span><span class="o">[</span>root@fedora-atomic-27-x86_64 log<span class="o">]</span><span class="c1"># chroot /sysroot/ostree/deploy/fedora-atomic/deploy/b25bde0109441817f912ece57ca1fc39efc60e6cef4a7a23ad9de51b1f36b742.0/</span><br />bash-4.4# vi /usr/lib/python3.6/site-packages/cloudinit/url_helper.py <br />bash-4.4# <span class="nb">exit</span><br /></pre></div>
+
+<p><br />
+未完待续</p>          </div>
+
+  </div>
+
+          </div>
+    <!-- /.wrapper -->
+
+    <!-- FOOTER -->
+    <footer class="footer footer-dark">
+      <div class="container">
+
+	<hr />
+
+	<div class="row">
+	  <div class="col-sm-6">
+	    <p class="copyright">
+              Created by <a href="https://openstacker.github.io">Feilong Wang</a> using
+              <a href="https://github.com/hyde/hyde">Hyde</a>.
+              <a href="https://github.com/openstacker/openstacker.github.io">Sources are
+                available</a>.
+              This work is licensed under a
+              <a rel="license"
+                 href="//creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">Creative
+                Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
+              <br>
+              <br>
+              <a rel="license" href="//creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">
+                <img alt="Creative Commons License" style="border-width:0"
+                     src="/media/images/creative-commons.png">
+              </a>
+            </p>
+	  </div>
+	  <div class="col-sm-6 text-right">
+	   <!--<img alt="Wechat ID: openstacker" src="/media/images/flwang_wechat.png" style="width:100px; height:100px"/>-->
+	  </div>
+	</div>
+      </div>
+    </footer>
+    <!-- /.footer -->
+
+    <!-- ScrollTop -->
+    <a href="#" class="scrolltop"><i></i></a>
+
+    
+          <!-- SCRIPTS -->
+    <script src="/media/js/jquery-2.1.3.min.js"></script>
+    <script src="/media/js/bootstrap.min.js"></script>
+    <script src="/media/js/plugins.js"></script>
+    <script src="/media/js/custom.js"></script>
+    <script src="/media/js/bootstrap-tab-bookmark.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76258151-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    
+
+  </body>
+</html>
