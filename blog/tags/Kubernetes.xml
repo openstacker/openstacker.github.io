@@ -7,7 +7,7 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-10-01T15:01:11Z</updated>
+  <updated>2018-10-01T15:09:22Z</updated>
 
   <id>https://openstacker.github.io/blog/tags/Kubernetes.xml</id>
 
@@ -105,7 +105,7 @@ kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。�
 就是NetworkManager不断去删，而calico node不断去修复，多么蛋疼的相爱相杀。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;最终的解决办法是在Magnum里修改NetworkManager的配置（/etc/NetworkManager/NetworkManager.conf），让它忽略那些Magnum创建的devices。&lt;/p&gt;
+&lt;p&gt;最终的解决办法是在Magnum里修改NetworkManager的配置（/etc/NetworkManager/NetworkManager.conf），让它忽略那些calico创建的devices。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;keyfile&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;br /&gt;unmanaged-devices&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;interface-name:cali*&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;interface-name:tunl*&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;br /&gt;

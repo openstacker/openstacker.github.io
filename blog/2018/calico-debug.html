@@ -147,7 +147,7 @@ kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。�
 就是NetworkManager不断去删，而calico node不断去修复，多么蛋疼的相爱相杀。</p>
 </li>
 </ol>
-<p>最终的解决办法是在Magnum里修改NetworkManager的配置（/etc/NetworkManager/NetworkManager.conf），让它忽略那些Magnum创建的devices。</p>
+<p>最终的解决办法是在Magnum里修改NetworkManager的配置（/etc/NetworkManager/NetworkManager.conf），让它忽略那些calico创建的devices。</p>
 <div class="highlight"><pre><span></span><span class="o">[</span>keyfile<span class="o">]</span><br />unmanaged-devices<span class="o">=</span>interface-name:cali*<span class="p">;</span>interface-name:tunl*<br /></pre></div>
 
 <p><br />
