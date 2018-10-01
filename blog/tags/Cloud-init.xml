@@ -7,7 +7,7 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-10-01T14:16:13Z</updated>
+  <updated>2018-10-01T14:23:12Z</updated>
 
   <id>https://openstacker.github.io/blog/tags/Cloud-init.xml</id>
 
@@ -32,7 +32,7 @@
                 label="Kubernetes" />
     
     <content type="html">
-                  &lt;p&gt;在上一篇&lt;a href=&#34;http://openstacker.github.io/blog/2018/magnum-architecture&#34;&gt;Magnum 入坑指南之一&lt;/a&gt;和&lt;a href=&#34;http://openstacker.github.io/blog/2017/magnum-2&#34;&gt;Magnum 入坑指南之二&lt;/a&gt;里
+                  &lt;p&gt;在上一篇&lt;a href=&#34;http://openstacker.github.io/blog/2017/magnum-architecture&#34;&gt;Magnum 入坑指南之一&lt;/a&gt;和&lt;a href=&#34;http://openstacker.github.io/blog/2018/magnum-2&#34;&gt;Magnum 入坑指南之二&lt;/a&gt;里
 已经介绍了Magnum的基本安装和使用。这篇文章主要用来记录我们在将Magnum部署到生产环境时所遇到的问题，也好作为今年Berlin Summit的presentation 材料。&lt;/p&gt;
 &lt;p&gt;到目前为止，我们在上prod/preprod的过程中遇到了两个问题。&lt;/p&gt;
 &lt;h2&gt;anti-affinity policy&lt;/h2&gt;
