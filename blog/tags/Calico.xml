@@ -7,7 +7,7 @@
     <link href="https://openstacker.github.io/blog/"/>
   
     
-  <updated>2018-10-01T14:23:12Z</updated>
+  <updated>2018-10-01T15:01:11Z</updated>
 
   <id>https://openstacker.github.io/blog/tags/Calico.xml</id>
 
@@ -37,19 +37,35 @@
 &lt;h2&gt;calico 网络问题的debug过程&lt;/h2&gt;
 &lt;p&gt;这个问题实际上是我最近调试 calico 和 kubernetes所遇到的一个实际问题。具体症状是这样的：通过Magnum创建k8s 集群后，
 kuberntes dashboard pod和coreDNS pod周期性的重启，而且比较频繁。其他pod正常。&lt;/p&gt;
-&lt;p&gt;下面是我的分析过程，参考了这篇文章()&lt;/p&gt;
+&lt;p&gt;下面是我的分析过程，参考了&lt;a href=&#34;https://www.lijiaocn.com/%E6%96%B9%E6%B3%95/2017/08/18/calico-network-problem-resove.html&#34;&gt;这篇文章&lt;/a&gt;&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;判断在pod重启之前是否有问题
+   这个和上面lijiao的博客里所介绍的分析步骤一样，就是看端到端的连通性是否有问题。测试之后发现没问题。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;回到pod的原理本身，重启说明 liveness 健康检查失败，根源在于网络失效，考虑到calico的原因，基本可以确定是calico 引起的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;周期性问题
+   经过多次不断实验，发现重启的频率基本在8分钟左右，但在重启之前网络是好的。那么说明，一个东西在破坏，一个东西在修复。去calico 的 slack里channel里询问了他们的工程师之后得到了启发，可能和NetworkManager有关系。因为我们用的Fedora Atomic image里默认仍然启用的是NetworkManager, 它会做一些周期性的检查，清理那些它认为不正确的device。遗憾的是，calico 所创建的某些虚拟device可能就在它认为不正确的范围内。造成的结果
+就是NetworkManager不断去删，而calico node不断去修复，多么蛋疼的相爱相杀。&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2&gt;在K8s中使用Calico的一些坑&lt;/h2&gt;
+&lt;p&gt;最终的解决办法是在Magnum里修改NetworkManager的配置（/etc/NetworkManager/NetworkManager.conf），让它忽略那些Magnum创建的devices。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;keyfile&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;br /&gt;unmanaged-devices&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;interface-name:cali*&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;interface-name:tunl*&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+具体内容请参考我给calico 提交的document PR https://github.com/projectcalico/calico/commit/a676f8ceb7371182acdd0f949c4d08ae992ac738&lt;/p&gt;
+&lt;h2&gt;在K8s中使用Calico的一些“问题”&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;k8s master node 到底需不需要 calico-node&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;pod 和 k8s api server 的通信问题&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;      
+&lt;li&gt;k8s master node 到底需不需要 calico-node&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这个根据我对calico的理解和实际的测试，master node 是需要calico-node的，否则会导致master和node之间的pod无法通信。这么说其实不准确，准确的说法应该是 从master无法访问到其他node上所运行的pod，例如dashboard。例如 dashboard如果运行在某一（几）个node上，那么通过kube-proxy 是需要从master访问到node上运行的 dashboard的pod的。所以如果这时候master上没有calico-node的话，kube-proxy不知道该把包转发到哪个node上去。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;pod 和 k8s api server 的通信问题&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这个问题我已经忘记当初为什么写在这里了，简单来说pod理论上不需要和api server通信。但如果是特殊的功能性的pod, 那可能是需要的。&lt;/p&gt;      
           </content>
   </entry>
   
