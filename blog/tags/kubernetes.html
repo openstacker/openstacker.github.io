@@ -5,8 +5,7 @@
         <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>
-        flwang:/hacking/blog
-        | Feilong Wang
+    Posts with tag kubernetes    | Feilong Wang
     </title>
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
             <link href="/media/css/bootstrap.min.css" rel="stylesheet">
@@ -21,9 +20,8 @@
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
     
         
-        <link rel="alternate" type="application/rss+xml"
-          href="/blog/index.xml" title="flwang:/hacking/blog">
-    
+    <link rel="alternate" type="application/rss+xml" href="/blog/tags/kubernetes.xml" title="flwang:/hacking/blog – kubernetes">
+
         <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -78,16 +76,19 @@
         <div class="container">
 	  <div class="col-sm-10">
 	    <h1>
-                        flwang:/hacking/blog
-      
-              </h1>
+            Posts with tag <strong>kubernetes</strong>            </h1>
 	  </div>
 	  <div class="col-sm-2 text-right">
 	    <ol class="breadcrumb breadcrumb-arrow">
-                                                                      <li class="active">
+                                                                      <li>
                 <a href="/blog">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                     Blog
+                </a>
+              </li>
+                                                        <li class="active">
+                <a href="/blog/tags">
+                                    Tags
                 </a>
               </li>
                             	    </ol>
@@ -100,48 +101,22 @@
           <div class="container post format-image">
       <div class="entry">
 	<header class="entry-header">
-	  <h2><a href="/blog/2016/windows_image_support">Windows Image Support</a></h2>
+	  <h2><a href="/blog/2019/k8s-cheatsheet">Kubernetes 笔记</a></h2>
 	  <div class="meta">
-	    <small><i class="fa fa-calendar"></i>Monday 11 April 2016</small>
+	    <small><i class="fa fa-calendar"></i>Sunday 10 February 2019</small>
 	    <small>
 	      <i class="fa fa-folder"></i>
-                              <a href="/blog/tags/Glance.html">Glance</a>,                              <a href="/blog/tags/Nova.html">Nova</a>,                              <a href="/blog/tags/Windows.html">Windows</a>,                              <a href="/blog/tags/OpenStack.html">OpenStack</a>              	    </small>
+                              <a href="/blog/tags/kubernetes.html">kubernetes</a>              	    </small>
             
 	  </div>
 	</header>
 	<div class="entry-content">
-                      <a href="/blog/2016/windows_image_support">
-              <div class="blog-title-image" style="background-image: url('/media/images/blog/2016/wellington_waterfront_sculpture.jpg');">
+                      <a href="/blog/2019/k8s-cheatsheet">
+              <div class="blog-title-image" style="background-image: url('/media/images/blog/2019/k8s.jpg');">
               </div>
             </a>
-                              <p>最近Catalyst Cloud的公有云服务要支持Windows 镜像，但问题并不是上传个image那么简单，实际操作起来
-有很多问题。下面总结一下涉及的一些问题。</p>
-	  <a href="/blog/2016/windows_image_support.html" class="btn btn-default white">Read More</a>
-	</div>
-      </div>
-    </div>
-    <hr>
-      <div class="container post format-image">
-      <div class="entry">
-	<header class="entry-header">
-	  <h2><a href="/blog/2016/zaqar-mitaka-release">Zaqar Mitaka Release</a></h2>
-	  <div class="meta">
-	    <small><i class="fa fa-calendar"></i>Sunday 10 April 2016</small>
-	    <small>
-	      <i class="fa fa-folder"></i>
-                              <a href="/blog/tags/Zaqar.html">Zaqar</a>,                              <a href="/blog/tags/OpenStack.html">OpenStack</a>              	    </small>
-            
-	  </div>
-	</header>
-	<div class="entry-content">
-                      <a href="/blog/2016/zaqar-mitaka-release">
-              <div class="blog-title-image" style="background-image: url('/media/images/blog/2016/parliament_buildings.jpg');">
-              </div>
-            </a>
-                              <p>Zaqar Mitaka Release 是我作为PTL的第一个Release，这恐怕也是我两年多以来参与Zaqar 最投入
-的一个Release。Zaqar team的规模并不大，我们只有5个core developer/reviwer, 但在这个
-Release中我们完成了很多有价值的工作。这里仅就其中的主要内容做个简单的回顾，也算是我最自己这半年来工作的一个总结。</p>
-	  <a href="/blog/2016/zaqar-mitaka-release.html" class="btn btn-default white">Read More</a>
+                              <p>这篇blog主要用来记录我在做k8s的过程中所遇到的那些小但烦人的问题以及解决的方法．</p>
+	  <a href="/blog/2019/k8s-cheatsheet.html" class="btn btn-default white">Read More</a>
 	</div>
       </div>
     </div>
@@ -150,10 +125,7 @@ Release中我们完成了很多有价值的工作。这里仅就其中的主要�
 
     <div class="container pagination-bar text-center">
       <ul class="pagination">
-                  <li><a href="/blog" class="prev"></a></li>
-                          <li><a href="/blog">1</a></li>
-                  <li class="active"><a href="/blog/page2">2</a></li>
-                      </ul>
+                              </ul>
     </div>
   </div>
 
@@ -267,7 +239,7 @@ Release中我们完成了很多有价值的工作。这里仅就其中的主要�
           </a>
         </li>
                 <li>
-	  <a               href="/blog/tags/kubernetes">
+	  <a class="active"               href="/blog/tags/kubernetes">
                kubernetes
             <span class="text-right pull-right">
               1

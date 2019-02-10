@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:base="https://openstacker.github.io">
+  <title>
+    Blog  </title>
+    <link href="https://openstacker.github.io/blog/tags/kubernetes.xml" rel="self" />
+  
+    <link href="https://openstacker.github.io/blog/"/>
+  
+    
+  <updated>2019-02-10T20:37:20Z</updated>
+
+  <id>https://openstacker.github.io/blog/tags/kubernetes.xml</id>
+
+      <entry>
+    <title type="html">Kubernetes 笔记</title>
+    <author><name>Feilong Wang</name></author>
+    <link href="https://openstacker.github.io/blog/2019/k8s-cheatsheet"/>
+    <updated>2019-02-10T13:40:00Z</updated>
+    <published>2019-02-10T13:40:00Z</published>
+    <id>/blog/2019/k8s-cheatsheet</id>
+        <category   scheme="/blog/tags"
+                term="kubernetes"
+                label="Kubernetes" />
+    
+    <content type="html">
+                  &lt;p&gt;这篇blog主要用来记录我在做k8s的过程中所遇到的那些小但烦人的问题以及解决的方法．&lt;/p&gt;
+&lt;h2&gt;BEGIN ENCRYPTED PRIVATE KEY 到 BEGIN RSA PRIVATE KEY 的转换&lt;/h2&gt;
+&lt;p&gt;这个是我在配置k8s controller manager的signing cert/key 的过程中遇到的问题．&lt;/p&gt;
+&lt;p&gt;--cluster-signing-cert-file=/etc/kubernetes/certs/ca.crt
+--cluster-signing-key-file=/etc/kubernetes/certs/ca.key&lt;/p&gt;
+&lt;p&gt;这里的ca.key要求是非加密的，也就是需要用文件开头为BEGIN RSA PRIVATE KEY这样的文件
+格式，否则在启动controller manager的时候会log里会提示下面的错误．&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;error starting controllers: failed to start certificate controller: Malformed private key &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;code&amp;quot;&lt;/span&gt;:2100,&lt;span class=&#34;s2&#34;&gt;&amp;quot;message&amp;quot;&lt;/span&gt;:&lt;span class=&#34;s2&#34;&gt;&amp;quot;Private key is encrypted.&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+因此需要通过下面的命令将加密的私钥解密：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;openssl rsa -in crypted.key -out decrypted.key&lt;br /&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;      
+          </content>
+  </entry>
+  
+
+</feed>

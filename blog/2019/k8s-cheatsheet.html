@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>
+        Kubernetes 笔记
+        | Feilong Wang
+    </title>
+        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+            <link href="/media/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/media/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/media/css/animate.css" rel="stylesheet">
+    <link href="/media/css/style.css" rel="stylesheet">
+    <link href="/media/css/style-customized.css" rel="stylesheet">
+    <link href="/media/css/pygments.css" rel="stylesheet">
+    <link href="/media/css/flag-icon.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600,700,900" rel="stylesheet">
+    
+        <link href="/blog/2018/magnum-to-production" rel="prev">
+        
+        <link rel="alternate" type="application/rss+xml"
+          href="/blog/index.xml" title="flwang:/hacking/blog">
+    
+        <meta property="og:title" content="Kubernetes 笔记">
+    <meta property="og:description" content="这篇blog主要用来记录我在做k8s的过程中所遇到的那些小但烦人的问题以及解决的方法．">
+    <meta property="og:image" content="https://openstacker.github.io/media/images/blog/2019/k8s.jpg">
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@juldanjou"/>
+    <meta name="twitter:image:src" content='https://openstacker.github.io/media/images/blog/2019/k8s.jpg'/>
+    <meta name="twitter:title" content="Kubernetes 笔记"/>
+    <meta name="twitter:domain" content="julien.danjou.info"/>
+    <meta name="twitter:description" content="这篇blog主要用来记录我在做k8s的过程中所遇到的那些小但烦人的问题以及解决的方法．"/>
+        <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'None', 'auto', {'allowLinker': true});
+      ga('send', 'pageview');
+    </script>
+      </head>
+  <body class="archive">
+        <!-- HEADER -->
+    <header class="header header-dark no-sticky">
+      <nav class="navbar container">
+	<div class="navbar-header">
+          <button class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <a class="navbar-brand" href="/">
+            <img src="/media/images/flwang.jpg"
+                 class="img-circle img-thumbnail"
+                 alt="Feilong Wang">
+            OpenStack老兵
+          </a>
+        </div>
+	<div id="navbar" class="navbar-collapse collapse">
+	  <ul class="nav navbar-nav pull-right">
+                                    <li>
+              <a href="/about">
+                                <span class="glyphicon glyphicon-user"></span>
+                                About
+              </a>
+            </li>
+                                    <li class="active">
+              <a href="/blog">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Blog
+              </a>
+            </li>
+                                  </ul>
+	</div>
+      </nav>
+    </header>
+    <!-- /.header -->
+
+    <!-- WRAPPER -->
+    <div class="wrapper">
+
+                  <div class="headcontent headcontent-md bg-sl-center overlay"
+           style="background-image: url('/media/images/blog/2019/k8s.jpg');">
+	<div class="container inforow">
+	  <div class="col-sm-10">
+	    <h1 class="white">
+                  Kubernetes 笔记
+                  </h1>
+	  </div>
+	  <div class="col-sm-2 text-right">
+	    <ol class="breadcrumb breadcrumb-arrow">
+                                                                      <li>
+                <a href="/blog">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    Blog
+                </a>
+              </li>
+                                                        <li class="active">
+                <a href="/blog/2019">
+                                    2019
+                </a>
+              </li>
+                            	    </ol>
+          </div>
+        </div>
+      </div>
+
+        <div class="container post">
+    <header class="entry-header">
+      <div class="meta">
+        <small><i class="fa fa-calendar"></i>Sunday 10 February 2019</small>
+        <small>
+          <i class="fa fa-folder"></i>
+                      <a href="/blog/tags/kubernetes.html">kubernetes</a>                  </small>
+      </div>
+    </header>
+    <div class="entry-content padding-bottom">
+            <p>这篇blog主要用来记录我在做k8s的过程中所遇到的那些小但烦人的问题以及解决的方法．</p>
+<h2>BEGIN ENCRYPTED PRIVATE KEY 到 BEGIN RSA PRIVATE KEY 的转换</h2>
+<p>这个是我在配置k8s controller manager的signing cert/key 的过程中遇到的问题．</p>
+<p>--cluster-signing-cert-file=/etc/kubernetes/certs/ca.crt
+--cluster-signing-key-file=/etc/kubernetes/certs/ca.key</p>
+<p>这里的ca.key要求是非加密的，也就是需要用文件开头为BEGIN RSA PRIVATE KEY这样的文件
+格式，否则在启动controller manager的时候会log里会提示下面的错误．</p>
+<div class="highlight"><pre><span></span>error starting controllers: failed to start certificate controller: Malformed private key <span class="o">{</span><span class="s2">&quot;code&quot;</span>:2100,<span class="s2">&quot;message&quot;</span>:<span class="s2">&quot;Private key is encrypted.&quot;</span><span class="o">}</span><br /></pre></div>
+
+<p><br />
+因此需要通过下面的命令将加密的私钥解密：</p>
+<div class="highlight"><pre><span></span>openssl rsa -in crypted.key -out decrypted.key<br /></pre></div>
+
+<p><br /></p>          </div>
+
+  </div>
+
+          </div>
+    <!-- /.wrapper -->
+
+    <!-- FOOTER -->
+    <footer class="footer footer-dark">
+      <div class="container">
+
+	<hr />
+
+	<div class="row">
+	  <div class="col-sm-6">
+	    <p class="copyright">
+              Created by <a href="https://openstacker.github.io">Feilong Wang</a> using
+              <a href="https://github.com/hyde/hyde">Hyde</a>.
+              <a href="https://github.com/openstacker/openstacker.github.io">Sources are
+                available</a>.
+              This work is licensed under a
+              <a rel="license"
+                 href="//creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">Creative
+                Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
+              <br>
+              <br>
+              <a rel="license" href="//creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">
+                <img alt="Creative Commons License" style="border-width:0"
+                     src="/media/images/creative-commons.png">
+              </a>
+            </p>
+	  </div>
+	  <div class="col-sm-6 text-right">
+	   <!--<img alt="Wechat ID: openstacker" src="/media/images/flwang_wechat.png" style="width:100px; height:100px"/>-->
+	  </div>
+	</div>
+      </div>
+    </footer>
+    <!-- /.footer -->
+
+    <!-- ScrollTop -->
+    <a href="#" class="scrolltop"><i></i></a>
+
+    
+          <!-- SCRIPTS -->
+    <script src="/media/js/jquery-2.1.3.min.js"></script>
+    <script src="/media/js/bootstrap.min.js"></script>
+    <script src="/media/js/plugins.js"></script>
+    <script src="/media/js/custom.js"></script>
+    <script src="/media/js/bootstrap-tab-bookmark.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76258151-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    
+
+  </body>
+</html>
